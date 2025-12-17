@@ -1,1 +1,15 @@
-# QT/Build Ignores
+# C++ ignores
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.so.*
+*.dll
+*.dylib
+
+# Qt Creator Ignores
+.qtcreator
+build
