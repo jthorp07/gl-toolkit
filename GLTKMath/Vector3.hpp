@@ -20,6 +20,8 @@ public:
 
     Vector3(double x, double y, double z):
         x(x), y(y), z(z) {};
+
+    Vector3 operator+(const Vector3& other) const;
 };
 
 } // namespace gltkmath

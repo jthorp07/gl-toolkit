@@ -20,3 +20,11 @@ TEST(Vector3, XYZConstructor) {
     EXPECT_FLOAT_EQ(vector.y, 2.0f);
     EXPECT_FLOAT_EQ(vector.z, 3.0f);
 }
+
+TEST(Vector3, Operators_UnaryAddition) {
+    gltkmath::Vector3 vector{ 1.0f, 2.0f, 3.0f };
+    gltkmath::Vector3 result = vector + vector;
+    EXPECT_FLOAT_EQ(result.x, 2.0f);
+    EXPECT_FLOAT_EQ(result.y, 4.0f);
+    EXPECT_FLOAT_EQ(result.z, 6.0f);
+}

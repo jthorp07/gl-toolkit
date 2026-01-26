@@ -8,4 +8,8 @@
 
 namespace gltkmath {
 
+Vector3 Vector3::operator+(const Vector3& other) const {
+    return Vector3(x + other.x, y + other.y, z + other.z);
+}
+
 } // namespace gltkmath
