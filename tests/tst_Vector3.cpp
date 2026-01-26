@@ -84,3 +84,12 @@ TEST(Vector3, Operators_ScalarDivision) {
     EXPECT_FLOAT_EQ(floatIntResult.y, 2.0f);
     EXPECT_FLOAT_EQ(floatIntResult.z, 2.5f);
 }
+
+TEST(Vector3, Operators_AdditionAssignment) {
+    gltkmath::Vector3 vectorOne{ 1, 2, 3 };
+    gltkmath::Vector3 vectorTwo{ 3, 2, 1 };
+    vectorOne += vectorTwo;
+    EXPECT_EQ(vectorOne.x, 4);
+    EXPECT_EQ(vectorOne.y, 4);
+    EXPECT_EQ(vectorOne.z, 4);
+}
