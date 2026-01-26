@@ -67,3 +67,20 @@ TEST(Vector3, Operators_ScalarMultiplication) {
     EXPECT_FLOAT_EQ(floatIntResult.y, 5.0f);
     EXPECT_FLOAT_EQ(floatIntResult.z, 7.5f);
 }
+
+TEST(Vector3, Operators_ScalarDivision) {
+    gltkmath::Vector3 intVector{ 6, 4, 2 };
+    gltkmath::Vector3 floatVector{ 2.0f, 4.0f, 5.0f };
+
+    // Vector3<int> / int
+    gltkmath::Vector3 intIntResult = intVector / 2;
+    EXPECT_EQ(intIntResult.x, 3);
+    EXPECT_EQ(intIntResult.y, 2);
+    EXPECT_EQ(intIntResult.z, 1);
+
+    // Vector3<float> / int
+    gltkmath::Vector3 floatIntResult = floatVector / 2;
+    EXPECT_FLOAT_EQ(floatIntResult.x, 1.0f);
+    EXPECT_FLOAT_EQ(floatIntResult.y, 2.0f);
+    EXPECT_FLOAT_EQ(floatIntResult.z, 2.5f);
+}

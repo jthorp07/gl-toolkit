@@ -92,6 +92,24 @@ public:
             static_cast<ResultType>(z) * static_cast<ResultType>(scalar)
         );
     }
+
+    /**
+     * @brief Scalar division
+     * @param divisor Value to divide by
+     * @return Vector whose components are divided by divisor
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector3<std::common_type_t<T, U>> operator/(U divisor) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Vector3<ResultType>(
+            static_cast<ResultType>(x) / static_cast<ResultType>(divisor),
+            static_cast<ResultType>(y) / static_cast<ResultType>(divisor),
+            static_cast<ResultType>(z) / static_cast<ResultType>(divisor)
+        );
+    }
+
+
 };
 
 // Type deduction
