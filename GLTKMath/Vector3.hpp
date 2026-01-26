@@ -116,10 +116,24 @@ public:
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
-    constexpr inline Vector3& operator+=(Vector3<U> other) {
+    constexpr inline Vector3& operator+=(const Vector3<U>& other) {
         x += other.x;
         y += other.y;
         z += other.z;
+        return *this;
+    }
+
+    /**
+     * @brief Component-wise subtraction assignment
+     * @param other Vector to subtract from this
+     * @return This
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector3& operator-=(const Vector3<U>& other) {
+        x -= other.x;
+        y -= other.y;
+        z -= other.z;
         return *this;
     }
 };

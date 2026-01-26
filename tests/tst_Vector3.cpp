@@ -93,3 +93,12 @@ TEST(Vector3, Operators_AdditionAssignment) {
     EXPECT_EQ(vectorOne.y, 4);
     EXPECT_EQ(vectorOne.z, 4);
 }
+
+TEST(Vector3, Operators_SubtractionAssignment) {
+    gltkmath::Vector3 vectorOne{ 6, 6, 6 };
+    gltkmath::Vector3 vectorTwo{ 3, 2, 1 };
+    vectorOne -= vectorTwo;
+    EXPECT_EQ(vectorOne.x, 3);
+    EXPECT_EQ(vectorOne.y, 4);
+    EXPECT_EQ(vectorOne.z, 5);
+}
