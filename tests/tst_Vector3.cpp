@@ -102,3 +102,11 @@ TEST(Vector3, Operators_SubtractionAssignment) {
     EXPECT_EQ(vectorOne.y, 4);
     EXPECT_EQ(vectorOne.z, 5);
 }
+
+TEST(Vector3, Operators_ScalarMultiplicationAssignment) {
+    gltkmath::Vector3 vector{ 1, 2, 3 };
+    vector *= 2.0f;
+    EXPECT_EQ(vector.x, 2);
+    EXPECT_EQ(vector.y, 4);
+    EXPECT_EQ(vector.z, 6);
+}
