@@ -12,7 +12,7 @@
 namespace gltkmath {
 
 /**
- * @brief A vector with 3 arithmetic components
+ * @brief A vector with 3 arithmetic components. Supports interoperability between compatible types
  */
 template<typename T>
     requires std::is_arithmetic_v<T>
@@ -23,23 +23,65 @@ public:
     T y = 0.0;
     T z = 0.0;
 
+    /**
+     * @brief Default constructor - Initializes components to zero
+     */
     constexpr Vector3() = default;
 
+    /**
+     * @brief Component-wise constructor - Explicitly initializes with XYZ components
+     * @param x First component
+     * @param y Second component
+     * @param z Third component
+     */
     Vector3(T x, T y, T z):
         x(x), y(y), z(z) {};
 
-    constexpr inline Vector3 operator+(const Vector3& other) const {
-        return Vector3(x + other.x, y + other.y, z + other.z);
+    /**
+     * @brief Component-wise addition
+     * @param other Vector to add
+     * @return Vector whose components are the sum of this and other
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector3<std::common_type_t<T, U>> operator+(const Vector3<U>& other) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Vector3(
+            static_cast<ResultType>(x) + static_cast<ResultType>(other.x),
+            static_cast<ResultType>(y) + static_cast<ResultType>(other.y),
+            static_cast<ResultType>(z) + static_cast<ResultType>(other.z)
+        );
     }
 
-    constexpr inline Vector3 operator-(const Vector3& other) const {
-        return Vector3(x - other.x, y - other.y, z - other.z);
+    /**
+     * @brief Component-wise subtraction
+     * @param other Vector to add
+     * @return Vector whose components are the sum of this and other
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector3<std::common_type_t<T, U>> operator-(const Vector3<U>& other) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Vector3(
+            static_cast<ResultType>(x) - static_cast<ResultType>(other.x),
+            static_cast<ResultType>(y) - static_cast<ResultType>(other.y),
+            static_cast<ResultType>(z) - static_cast<ResultType>(other.z)
+        );
     }
 
+    /**
+     * @brief Unary subtraction (negation)
+     * @return Vector whose components are the negation of this vector's components
+     */
     constexpr inline Vector3 operator-() const {
         return Vector3(-x, -y, -z);
     }
 
+    /**
+     * @brief Scalar multiplication
+     * @param scalar Value to scale by
+     * @return Vector whose components are scaled by scalar
+     */
     template<typename U>
         requires std::is_arithmetic_v<U>
     constexpr inline Vector3<std::common_type_t<T, U>> operator*(U scalar) const {
