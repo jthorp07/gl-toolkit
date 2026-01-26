@@ -42,7 +42,7 @@ public:
 
     template<typename U>
         requires std::is_arithmetic_v<U>
-    constexpr inline Vector3<std::common_type_t<T, U>> operator*(U scalar) {
+    constexpr inline Vector3<std::common_type_t<T, U>> operator*(U scalar) const {
         using ResultType = std::common_type_t<T, U>;
         return Vector3<ResultType>(
             static_cast<ResultType>(x) * static_cast<ResultType>(scalar),
