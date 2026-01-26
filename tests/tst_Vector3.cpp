@@ -40,4 +40,30 @@ TEST(Vector3, Operators_Subtraction) {
 TEST(Vector3, Operators_UnarySubtraction) {
     gltkmath::Vector3 vector{ 1.0f, 2.0f, 3.0f };
     gltkmath::Vector3 result = -vector;
+    EXPECT_FLOAT_EQ(result.x, -1.0f);
+    EXPECT_FLOAT_EQ(result.y, -2.0f);
+    EXPECT_FLOAT_EQ(result.z, -3.0f);
+}
+
+TEST(Vector3, Operators_ScalarMultiplication) {
+    gltkmath::Vector3 intVector{ 1, 2, 3 };
+    gltkmath::Vector3 floatVector{ 1.0f, 2.0f, 3.0f };
+
+    // Vector3<int> * int = int
+    gltkmath::Vector3 intIntResult = intVector * 2;
+    EXPECT_EQ(intIntResult.x, 2);
+    EXPECT_EQ(intIntResult.y, 4);
+    EXPECT_EQ(intIntResult.z, 6);
+
+    // Vector3<int> * float = float
+    gltkmath::Vector3 intFloatResult = intVector * 2.5f;
+    EXPECT_FLOAT_EQ(intFloatResult.x, 2.5f);
+    EXPECT_FLOAT_EQ(intFloatResult.y, 5.0f);
+    EXPECT_FLOAT_EQ(intFloatResult.z, 7.5f);
+
+    // Vector3<float> * int = float
+    gltkmath::Vector3 floatIntResult = intVector * 2.5f;
+    EXPECT_FLOAT_EQ(floatIntResult.x, 2.5f);
+    EXPECT_FLOAT_EQ(floatIntResult.y, 5.0f);
+    EXPECT_FLOAT_EQ(floatIntResult.z, 7.5f);
 }

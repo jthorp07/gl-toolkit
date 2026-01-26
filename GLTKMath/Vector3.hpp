@@ -7,7 +7,7 @@
 #ifndef VECTOR3_HPP
 #define VECTOR3_HPP
 
-#include <concepts>
+#include <type_traits>
 
 namespace gltkmath {
 
@@ -38,6 +38,17 @@ public:
 
     constexpr inline Vector3 operator-() const {
         return Vector3(-x, -y, -z);
+    }
+
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector3<std::common_type_t<T, U>> operator*(U scalar) {
+        using ResultType = std::common_type_t<T, U>;
+        return Vector3<ResultType>(
+            static_cast<ResultType>(x) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(y) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(z) * static_cast<ResultType>(scalar)
+        );
     }
 };
 
