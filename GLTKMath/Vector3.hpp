@@ -7,22 +7,39 @@
 #ifndef VECTOR3_HPP
 #define VECTOR3_HPP
 
+#include <concepts>
+
 namespace gltkmath {
 
+/**
+ * @brief A vector with 3 arithmetic components
+ */
+template<typename T>
+    requires std::is_arithmetic_v<T>
 class Vector3 {
 public:
-    double x;
-    double y;
-    double z;
 
-    Vector3():
-        x(0.0f), y(0.0f), z(0.0f) {};
+    T x = 0.0;
+    T y = 0.0;
+    T z = 0.0;
 
-    Vector3(double x, double y, double z):
+    constexpr Vector3() = default;
+
+    Vector3(T x, T y, T z):
         x(x), y(y), z(z) {};
 
-    Vector3 operator+(const Vector3& other) const;
+    constexpr inline Vector3 operator+(const Vector3& other) const {
+        return Vector3(x + other.x, y + other.y, z + other.z);
+    }
+
+    constexpr inline Vector3 operator-(const Vector3& other) const {
+        return Vector3(x - other.x, y - other.y, z - other.z);
+    }
 };
+
+// Type deduction
+template <typename T>
+Vector3(T, T, T) -> Vector3<T>;
 
 } // namespace gltkmath
 
