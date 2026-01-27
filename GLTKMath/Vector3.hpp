@@ -7,6 +7,8 @@
 #ifndef VECTOR3_HPP
 #define VECTOR3_HPP
 
+#include "Vector4.hpp"
+
 #include <cmath>
 #include <cstdint>
 #include <type_traits>
@@ -38,6 +40,14 @@ public:
      */
     constexpr Vector3(T x, T y, T z):
         x(x), y(y), z(z) {};
+
+    /**
+     * @brief Vector4 conversion constructor - Initializes with the first 3
+     *        components from a Vector4
+     * @param vector Vector4 to initialize from
+     */
+    constexpr explicit Vector3(Vector4<T> vector):
+        x(vector.x), y(vector.y), z(vector.z) {};
 
     /**
      * @brief Component-wise addition

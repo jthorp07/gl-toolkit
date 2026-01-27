@@ -7,21 +7,29 @@
 #include <gtest/gtest.h>
 #include "Vector3.hpp"
 
-TEST(Vector3, DefaultConstructor) {
+TEST(Vector3_Constructors, Default) {
     gltkmath::Vector3<float> vector{};
     EXPECT_FLOAT_EQ(vector.x, 0.0f);
     EXPECT_FLOAT_EQ(vector.y, 0.0f);
     EXPECT_FLOAT_EQ(vector.z, 0.0f);
 }
 
-TEST(Vector3, XYZConstructor) {
+TEST(Vector3_Constructors, XYZ) {
     gltkmath::Vector3 vector{ 1.0f, 2.0f, 3.0f };
     EXPECT_FLOAT_EQ(vector.x, 1.0f);
     EXPECT_FLOAT_EQ(vector.y, 2.0f);
     EXPECT_FLOAT_EQ(vector.z, 3.0f);
 }
 
-TEST(Vector3, Operators_Addition) {
+TEST(Vector3_Constructors, Vector4) {
+    gltkmath::Vector4 vec4{ 1, 2, 3, 4 };
+    gltkmath::Vector3 vec3{ vec4 };
+    EXPECT_EQ(vec3.x, 1);
+    EXPECT_EQ(vec3.y, 2);
+    EXPECT_EQ(vec3.z, 3);
+}
+
+TEST(Vector3_Operators, Addition) {
     gltkmath::Vector3 vector{ 1.0f, 2.0f, 3.0f };
     gltkmath::Vector3 result = vector + vector;
     EXPECT_FLOAT_EQ(result.x, 2.0f);
@@ -29,7 +37,7 @@ TEST(Vector3, Operators_Addition) {
     EXPECT_FLOAT_EQ(result.z, 6.0f);
 }
 
-TEST(Vector3, Operators_Subtraction) {
+TEST(Vector3_Operators, Subtraction) {
     gltkmath::Vector3 vector{ 1.0f, 2.0f, 3.0f };
     gltkmath::Vector3 result = vector - vector;
     EXPECT_FLOAT_EQ(result.x, 0.0f);
@@ -37,7 +45,7 @@ TEST(Vector3, Operators_Subtraction) {
     EXPECT_FLOAT_EQ(result.z, 0.0f);
 }
 
-TEST(Vector3, Operators_UnarySubtraction) {
+TEST(Vector3_Operators, UnarySubtraction) {
     gltkmath::Vector3 vector{ 1.0f, 2.0f, 3.0f };
     gltkmath::Vector3 result = -vector;
     EXPECT_FLOAT_EQ(result.x, -1.0f);
@@ -45,7 +53,7 @@ TEST(Vector3, Operators_UnarySubtraction) {
     EXPECT_FLOAT_EQ(result.z, -3.0f);
 }
 
-TEST(Vector3, Operators_ScalarMultiplication) {
+TEST(Vector3_Operators, ScalarMultiplication) {
     gltkmath::Vector3 intVector{ 1, 2, 3 };
     gltkmath::Vector3 floatVector{ 1.0f, 2.0f, 3.0f };
 
@@ -68,7 +76,7 @@ TEST(Vector3, Operators_ScalarMultiplication) {
     EXPECT_FLOAT_EQ(floatIntResult.z, 7.5f);
 }
 
-TEST(Vector3, Operators_ScalarDivision) {
+TEST(Vector3_Operators, ScalarDivision) {
     gltkmath::Vector3 intVector{ 6, 4, 2 };
     gltkmath::Vector3 floatVector{ 2.0f, 4.0f, 5.0f };
 
@@ -85,7 +93,7 @@ TEST(Vector3, Operators_ScalarDivision) {
     EXPECT_FLOAT_EQ(floatIntResult.z, 2.5f);
 }
 
-TEST(Vector3, Operators_AdditionAssignment) {
+TEST(Vector3_Operators, AdditionAssignment) {
     gltkmath::Vector3 vectorOne{ 1, 2, 3 };
     gltkmath::Vector3 vectorTwo{ 3, 2, 1 };
     vectorOne += vectorTwo;
@@ -94,7 +102,7 @@ TEST(Vector3, Operators_AdditionAssignment) {
     EXPECT_EQ(vectorOne.z, 4);
 }
 
-TEST(Vector3, Operators_SubtractionAssignment) {
+TEST(Vector3_Operators, SubtractionAssignment) {
     gltkmath::Vector3 vectorOne{ 6, 6, 6 };
     gltkmath::Vector3 vectorTwo{ 3, 2, 1 };
     vectorOne -= vectorTwo;
@@ -103,7 +111,7 @@ TEST(Vector3, Operators_SubtractionAssignment) {
     EXPECT_EQ(vectorOne.z, 5);
 }
 
-TEST(Vector3, Operators_ScalarMultiplicationAssignment) {
+TEST(Vector3_Operators, ScalarMultiplicationAssignment) {
     gltkmath::Vector3 vector{ 1, 2, 3 };
     vector *= 2.0f;
     EXPECT_EQ(vector.x, 2);
@@ -111,7 +119,7 @@ TEST(Vector3, Operators_ScalarMultiplicationAssignment) {
     EXPECT_EQ(vector.z, 6);
 }
 
-TEST(Vector3, Operators_ScalarDivisionAssignment) {
+TEST(Vector3_Operators, ScalarDivisionAssignment) {
     gltkmath::Vector3 vector{ 10.0f, 5.0f, 3.6f };
     vector /= 2;
     EXPECT_FLOAT_EQ(vector.x, 5.0f);

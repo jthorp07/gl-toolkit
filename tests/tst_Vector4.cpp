@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 #include "Vector4.hpp"
 
-TEST(Vector4, XYZWConstructor) {
+TEST(Vector4_Constructors, XYZW) {
     gltkmath::Vector4 vector{ 1, 2, 3, 4 };
     EXPECT_EQ(vector.x, 1);
     EXPECT_EQ(vector.y, 2);
