@@ -169,13 +169,16 @@ public:
 
     /**
      * @brief The scalar magnitude of the vector using 3D Euclidean distance
+     *
+     * @warning Only usable with floating point vectors
+     *
      * @return Magnitude of the vector
      */
-    constexpr inline double magnitude() const {
+    [[nodiscard]] constexpr inline double magnitude() const requires std::floating_point<T> {
         return std::sqrt(
-            std::pow(static_cast<double>(x), 2.0) +
-            std::pow(static_cast<double>(y), 2.0) +
-            std::pow(static_cast<double>(z), 2.0)
+            std::pow(x, 2.0) +
+            std::pow(y, 2.0) +
+            std::pow(z, 2.0)
         );
     }
 
@@ -194,6 +197,11 @@ public:
         );
     }
 
+    /**
+     * @brief Makes a vector with magnitude 1 facing the same direction as
+     *        this vector
+     * @return Normal vector
+     */
     [[nodiscard]] constexpr inline Vector3 normal() const requires std::floating_point<T> {
         const auto _magnitude = magnitude();
         return Vector3(

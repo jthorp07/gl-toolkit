@@ -120,8 +120,8 @@ TEST(Vector3, Operators_ScalarDivisionAssignment) {
 }
 
 TEST(Vector3, magnitude) {
-    EXPECT_DOUBLE_EQ(gltkmath::Vector3(3.0, 4.0, 0.0).magnitude(), 5.0);
-    gltkmath::Vector3 vector{ 3, 4, 12 };
+    EXPECT_FLOAT_EQ(gltkmath::Vector3(3.0f, 4.0f, 0.0f).magnitude(), 5.0f);
+    gltkmath::Vector3 vector{ 3.0, 4.0, 12.0 };
     EXPECT_DOUBLE_EQ(vector.magnitude(), 13.0);
 }
 
