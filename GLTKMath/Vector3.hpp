@@ -36,7 +36,7 @@ public:
      * @param y Second component
      * @param z Third component
      */
-    Vector3(T x, T y, T z):
+    constexpr Vector3(T x, T y, T z):
         x(x), y(y), z(z) {};
 
     /**
@@ -168,18 +168,26 @@ public:
     }
 
     /**
-     * @brief The scalar magnitude of the vector using 3D Euclidean distance
+     * @brief The scalar magnitude of the vector using 3D Euclidean distance.
      *
      * @warning Only usable with floating point vectors
      *
      * @return Magnitude of the vector
      */
-    [[nodiscard]] constexpr inline double magnitude() const requires std::floating_point<T> {
+    [[nodiscard]] constexpr inline T magnitude() const requires std::floating_point<T> {
         return std::sqrt(
             std::pow(x, 2.0) +
             std::pow(y, 2.0) +
             std::pow(z, 2.0)
         );
+    }
+
+    /**
+     * @brief The scalar magnitude of the vector squared using 3D Euclidean distance.
+     * @return Magnitude of the vector squared
+     */
+    [[nodiscard]] constexpr inline T magnitudeSquared() const {
+        return x * x + y * y + z * z;
     }
 
     /**

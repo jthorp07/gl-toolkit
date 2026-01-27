@@ -125,21 +125,29 @@ TEST(Vector3, magnitude) {
     EXPECT_DOUBLE_EQ(vector.magnitude(), 13.0);
 }
 
+TEST(Vector3, magnitudeSquared) {
+    EXPECT_EQ(gltkmath::Vector3(1, 2, 3).magnitudeSquared(), 14);
+    gltkmath::Vector3 vector{ 3.0, 5.0, 4.0 };
+    EXPECT_DOUBLE_EQ(vector.magnitudeSquared(), 50.0);
+}
+
 TEST(Vector3, cast) {
     gltkmath::Vector3 intVector{ 1, 2, 3 };
     gltkmath::Vector3 doubleVector = intVector.cast<double>();
+    std::ignore = doubleVector;
     ::testing::StaticAssertTypeEq<decltype(intVector), gltkmath::Vector3<int>>();
     ::testing::StaticAssertTypeEq<decltype(doubleVector), gltkmath::Vector3<double>>();
     ::testing::StaticAssertTypeEq<decltype(gltkmath::Vector3(1, 2, 3).cast<float>()),
                                   gltkmath::Vector3<float>>();
 }
 
-/**
- * @todo Add more cases to this
- */
 TEST(Vector3, normal) {
     gltkmath::Vector3 xAxisNormal = gltkmath::Vector3(5.0, 0.0, 0.0).normal();
     EXPECT_DOUBLE_EQ(xAxisNormal.x, 1.0);
     EXPECT_DOUBLE_EQ(xAxisNormal.y, 0.0);
     EXPECT_DOUBLE_EQ(xAxisNormal.z, 0.0);
+    gltkmath::Vector3 xyzVector = gltkmath::Vector3(3.0, 4.0, 12.0).normal();
+    EXPECT_DOUBLE_EQ(xyzVector.x, 3.0 / 13.0);
+    EXPECT_DOUBLE_EQ(xyzVector.y, 4.0 / 13.0);
+    EXPECT_DOUBLE_EQ(xyzVector.z, 12.0 / 13.0);
 }
