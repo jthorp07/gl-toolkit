@@ -178,6 +178,21 @@ public:
             std::pow(static_cast<double>(z), 2.0)
         );
     }
+
+    /**
+     * @brief Copies this vector's components to a new vector casted to
+     *        NewType
+     * @return Copied casted vector
+     */
+    template<typename NewType>
+        requires std::is_arithmetic_v<NewType>
+    [[nodiscard]] constexpr inline Vector3<NewType> cast() {
+        return Vector3<NewType>(
+            static_cast<NewType>(x),
+            static_cast<NewType>(y),
+            static_cast<NewType>(z)
+        );
+    }
 };
 
 // Type deduction

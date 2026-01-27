@@ -124,3 +124,12 @@ TEST(Vector3, magnitude) {
     gltkmath::Vector3 vector{ 3, 4, 12 };
     EXPECT_DOUBLE_EQ(vector.magnitude(), 13.0);
 }
+
+TEST(Vector3, cast) {
+    gltkmath::Vector3 intVector{ 1, 2, 3 };
+    gltkmath::Vector3 doubleVector = intVector.cast<double>();
+    ::testing::StaticAssertTypeEq<decltype(intVector), gltkmath::Vector3<int>>();
+    ::testing::StaticAssertTypeEq<decltype(doubleVector), gltkmath::Vector3<double>>();
+    ::testing::StaticAssertTypeEq<decltype(gltkmath::Vector3(1, 2, 3).cast<float>()),
+                                  gltkmath::Vector3<float>>();
+}
