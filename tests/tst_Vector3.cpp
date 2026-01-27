@@ -118,3 +118,9 @@ TEST(Vector3, Operators_ScalarDivisionAssignment) {
     EXPECT_FLOAT_EQ(vector.y, 2.5f);
     EXPECT_FLOAT_EQ(vector.z, 1.8f);
 }
+
+TEST(Vector3, magnitude) {
+    EXPECT_DOUBLE_EQ(gltkmath::Vector3(3.0, 4.0, 0.0).magnitude(), 5.0);
+    gltkmath::Vector3 vector{ 3, 4, 12 };
+    EXPECT_DOUBLE_EQ(vector.magnitude(), 13.0);
+}

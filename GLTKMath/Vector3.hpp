@@ -7,6 +7,8 @@
 #ifndef VECTOR3_HPP
 #define VECTOR3_HPP
 
+#include <cmath>
+#include <cstdint>
 #include <type_traits>
 
 namespace gltkmath {
@@ -163,6 +165,18 @@ public:
         y /= divisor;
         z /= divisor;
         return *this;
+    }
+
+    /**
+     * @brief The scalar magnitude of the vector using 3D Euclidean distance
+     * @return Magnitude of the vector
+     */
+    constexpr inline double magnitude() const {
+        return std::sqrt(
+            std::pow(static_cast<double>(x), 2.0) +
+            std::pow(static_cast<double>(y), 2.0) +
+            std::pow(static_cast<double>(z), 2.0)
+        );
     }
 };
 
