@@ -151,3 +151,12 @@ TEST(Vector3, normal) {
     EXPECT_DOUBLE_EQ(xyzVector.y, 4.0 / 13.0);
     EXPECT_DOUBLE_EQ(xyzVector.z, 12.0 / 13.0);
 }
+
+TEST(Vector3, dot) {
+    gltkmath::Vector3 intVector{ 1, 2, 3 };
+    gltkmath::Vector3 floatVector{ 1.0f, 2.0f, 3.0f };
+    EXPECT_FLOAT_EQ(intVector.dot(floatVector), 14.0f);
+    EXPECT_EQ(intVector.dot(intVector), 14);
+    gltkmath::Vector3 doubleVector{ 2.0, 5.0, -7.0 };
+    EXPECT_DOUBLE_EQ(doubleVector.dot(gltkmath::Vector3(2.0, -3.0, -1.0)), -4.0);
+}

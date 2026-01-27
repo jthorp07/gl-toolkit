@@ -218,6 +218,17 @@ public:
             z / _magnitude
         );
     }
+
+    /**
+     * @brief Dot product of this and another vector
+     * @param other Vector to dot with this
+     * @return This dot other
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    [[nodiscard]] constexpr inline std::common_type_t<T, U> dot(Vector3<U> other) const {
+        return x * other.x + y * other.y + z * other.z;
+    }
 };
 
 // Type deduction
