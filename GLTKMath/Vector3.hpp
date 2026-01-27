@@ -186,11 +186,20 @@ public:
      */
     template<typename NewType>
         requires std::is_arithmetic_v<NewType>
-    [[nodiscard]] constexpr inline Vector3<NewType> cast() {
+    [[nodiscard]] constexpr inline Vector3<NewType> cast() const {
         return Vector3<NewType>(
             static_cast<NewType>(x),
             static_cast<NewType>(y),
             static_cast<NewType>(z)
+        );
+    }
+
+    [[nodiscard]] constexpr inline Vector3 normal() const requires std::floating_point<T> {
+        const auto _magnitude = magnitude();
+        return Vector3(
+            x / _magnitude,
+            y / _magnitude,
+            z / _magnitude
         );
     }
 };

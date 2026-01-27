@@ -133,3 +133,13 @@ TEST(Vector3, cast) {
     ::testing::StaticAssertTypeEq<decltype(gltkmath::Vector3(1, 2, 3).cast<float>()),
                                   gltkmath::Vector3<float>>();
 }
+
+/**
+ * @todo Add more cases to this
+ */
+TEST(Vector3, normal) {
+    gltkmath::Vector3 xAxisNormal = gltkmath::Vector3(5.0, 0.0, 0.0).normal();
+    EXPECT_DOUBLE_EQ(xAxisNormal.x, 1.0);
+    EXPECT_DOUBLE_EQ(xAxisNormal.y, 0.0);
+    EXPECT_DOUBLE_EQ(xAxisNormal.z, 0.0);
+}
