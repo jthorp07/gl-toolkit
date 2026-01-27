@@ -150,6 +150,20 @@ public:
         z *= scalar;
         return *this;
     }
+
+    /**
+     * @brief Scalar division assignment
+     * @param divisor Value to divide by
+     * @return This
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector3& operator/=(U divisor) {
+        x /= divisor;
+        y /= divisor;
+        z /= divisor;
+        return *this;
+    }
 };
 
 // Type deduction

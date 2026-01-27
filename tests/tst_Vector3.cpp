@@ -110,3 +110,11 @@ TEST(Vector3, Operators_ScalarMultiplicationAssignment) {
     EXPECT_EQ(vector.y, 4);
     EXPECT_EQ(vector.z, 6);
 }
+
+TEST(Vector3, Operators_ScalarDivisionAssignment) {
+    gltkmath::Vector3 vector{ 10.0f, 5.0f, 3.6f };
+    vector /= 2;
+    EXPECT_FLOAT_EQ(vector.x, 5.0f);
+    EXPECT_FLOAT_EQ(vector.y, 2.5f);
+    EXPECT_FLOAT_EQ(vector.z, 1.8f);
+}
