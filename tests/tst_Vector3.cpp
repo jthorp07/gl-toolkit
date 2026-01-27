@@ -160,3 +160,19 @@ TEST(Vector3, dot) {
     gltkmath::Vector3 doubleVector{ 2.0, 5.0, -7.0 };
     EXPECT_DOUBLE_EQ(doubleVector.dot(gltkmath::Vector3(2.0, -3.0, -1.0)), -4.0);
 }
+
+TEST(Vector3, cross) {
+    gltkmath::Vector3 first{ 1.0, 2.0, 3.0 };
+    gltkmath::Vector3 second{ 4.0, 5.0, 6.0 };
+    gltkmath::Vector3 firstCrossSecond = first.cross(second);
+    EXPECT_DOUBLE_EQ(firstCrossSecond.x, -3.0);
+    EXPECT_DOUBLE_EQ(firstCrossSecond.y, 6.0);
+    EXPECT_DOUBLE_EQ(firstCrossSecond.z, -3.0);
+
+    gltkmath::Vector3 third{ 3.0f, 4.0f, -12.0f };
+    gltkmath::Vector3 fourth{ 1.0f, 0.0f, -1.0f };
+    gltkmath::Vector3 thirdCrossFourth = third.cross(fourth);
+    EXPECT_FLOAT_EQ(thirdCrossFourth.x, -4.0f);
+    EXPECT_FLOAT_EQ(thirdCrossFourth.y, -9.0f);
+    EXPECT_FLOAT_EQ(thirdCrossFourth.z, -4.0f);
+}

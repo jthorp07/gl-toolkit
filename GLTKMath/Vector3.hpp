@@ -229,6 +229,19 @@ public:
     [[nodiscard]] constexpr inline std::common_type_t<T, U> dot(Vector3<U> other) const {
         return x * other.x + y * other.y + z * other.z;
     }
+
+    /**
+     * @brief Cross product of this and another vector in the order "this cross other"
+     * @param other Vector to cross this with
+     * @return Cross product vector
+     */
+    [[nodiscard]] constexpr inline Vector3 cross(Vector3 other) const requires std::floating_point<T> {
+        return Vector3(
+            y * other.z - z * other.y,
+            z * other.x - x * other.z,
+            x * other.y - y * other.x
+        );
+    }
 };
 
 // Type deduction
