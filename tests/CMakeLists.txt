@@ -12,7 +12,8 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(GLTKTests main.cpp
-    tst_Vector3.cpp)
+    tst_Vector3.cpp
+    tst_Vector4.cpp)
 
 target_link_libraries(GLTKTests
     PRIVATE
