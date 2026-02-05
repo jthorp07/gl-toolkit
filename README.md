@@ -1,6 +1,7 @@
 # GLTK: A Toolkit for OpenGL-Based Engines
 
-[!WARNING]: This is a personal project that includes hand-rolling mathematical constructs and formulae. While I intend to do so as optimally and portably as possible for the scope of the project, there will certainly be both performance and flexibility limitations when compared to more robust solutions like [GLM](https://github.com/g-truc/glm).
+> [!WARNING]
+> This is a personal project that includes hand-rolling mathematical constructs and formulae. While I intend to do so as optimally and portably as possible for the scope of the project, there will certainly be both performance and flexibility limitations when compared to more robust solutions like [GLM](https://github.com/g-truc/glm).
 
 ## Feature Roadmap
 
@@ -13,13 +14,10 @@ Public facing documentation will probably be put on the backburner until a minim
         - [ ] 2D Vector
         - [x] 3D Vector
         - [ ] 4D Vector
-        - [ ] Vector Interoperability (Where Appropriate)
     - [ ] Matrix Math (Multiplication, Determinant, Inverse)
         - [ ] 2x2 Matrix
         - [ ] 3x3 Matrix
         - [ ] 4x4 Matrix
-        - [ ] Model/View/Perspective Projection Matrices
-        - [ ] Matrix Interoperability
 - [ ] Rendering
     - [ ] OpenGL Interface
         - [ ] Vertex Buffer
@@ -30,17 +28,13 @@ Public facing documentation will probably be put on the backburner until a minim
         - [ ] "Bring Your Own Shaders" Option
     - [ ] Internal Model
         - [ ] Geometric Meshes
+            - [ ] Base Mesh
             - [ ] Rectangular Prism
-            - [ ] Rectangular Pyramid
-            - [ ] Triangular Pyramid
-            - [ ] Rectangle
-            - [ ] Triangle
-        - [ ] Model/View/Perspective Projection Matrices
+        - [ ] Model/View/Perspective Rendering Logic
         - [ ] Transformation Functions for Model
             - [ ] Translate
             - [ ] Scale
             - [ ] Rotate
-            - [ ] Reflect
 - [ ] Other Core Logic
     - [ ] Render Loop
     - [ ] Event System
