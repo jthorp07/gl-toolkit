@@ -62,6 +62,14 @@ public:
             static_cast<ResultType>(w) - static_cast<ResultType>(other.w)
         );
     }
+
+    /**
+     * @brief Unary subtraction (negation)
+     * @return Vector whose components are the negation of this vector's components
+     */
+    constexpr inline Vector4 operator-() const {
+        return Vector4(-x, -y, -z, -w);
+    }
 };
 
 // Type deduction

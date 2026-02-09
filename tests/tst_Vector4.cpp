@@ -41,3 +41,12 @@ TEST(Vector4_Operators, Subtraction) {
     EXPECT_FLOAT_EQ(result.z, 1.0f);
     EXPECT_FLOAT_EQ(result.w, 3.0f);
 }
+
+TEST(Vector4_Operators, UnarySubtraction) {
+    gltkmath::Vector4 vector{ 1, -2, -3, 4 };
+    gltkmath::Vector4 negatedVector = -vector;
+    EXPECT_EQ(negatedVector.x, -1);
+    EXPECT_EQ(negatedVector.y, 2);
+    EXPECT_EQ(negatedVector.z, 3);
+    EXPECT_EQ(negatedVector.w, -4);
+}
