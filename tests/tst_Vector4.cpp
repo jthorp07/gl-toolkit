@@ -31,3 +31,13 @@ TEST(Vector4_Operators, Addition) {
     EXPECT_FLOAT_EQ(result.z, 6.0f);
     EXPECT_FLOAT_EQ(result.w, 8.0f);
 }
+
+TEST(Vector4_Operators, Subtraction) {
+    gltkmath::Vector4 vector{ 1.0f, 2.0f, 3.0f, 4.0f };
+    gltkmath::Vector4 vectorTwo{ 4.0f, 3.0f, 2.0f, 1.0f };
+    gltkmath::Vector4 result = vector - vectorTwo;
+    EXPECT_FLOAT_EQ(result.x, -3.0f);
+    EXPECT_FLOAT_EQ(result.y, -1.0f);
+    EXPECT_FLOAT_EQ(result.z, 1.0f);
+    EXPECT_FLOAT_EQ(result.w, 3.0f);
+}

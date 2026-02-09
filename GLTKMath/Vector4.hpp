@@ -45,6 +45,23 @@ public:
             static_cast<ResultType>(w) + static_cast<ResultType>(other.w)
         );
     }
+
+    /**
+     * @brief Component-wise subtraction
+     * @param other Vector to add
+     * @return Vector whose components are the sum of this and other
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector4<std::common_type_t<T, U>> operator-(const Vector4<U>& other) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Vector4(
+            static_cast<ResultType>(x) - static_cast<ResultType>(other.x),
+            static_cast<ResultType>(y) - static_cast<ResultType>(other.y),
+            static_cast<ResultType>(z) - static_cast<ResultType>(other.z),
+            static_cast<ResultType>(w) - static_cast<ResultType>(other.w)
+        );
+    }
 };
 
 // Type deduction
