@@ -70,6 +70,23 @@ public:
     constexpr inline Vector4 operator-() const {
         return Vector4(-x, -y, -z, -w);
     }
+
+    /**
+     * @brief Scalar multiplication
+     * @param scalar Value to scale by
+     * @return Vector whose components are scaled by scalar
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector4<std::common_type_t<T, U>> operator*(U scalar) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Vector4<ResultType>(
+            static_cast<ResultType>(x) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(y) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(z) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(w) * static_cast<ResultType>(scalar)
+        );
+    }
 };
 
 // Type deduction
