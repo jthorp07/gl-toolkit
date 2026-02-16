@@ -95,3 +95,13 @@ TEST(Vector4_Operators, ScalarDivision) {
     EXPECT_FLOAT_EQ(floatIntResult.z, 2.5f);
     EXPECT_FLOAT_EQ(floatIntResult.w, 2.0f);
 }
+
+TEST(Vector4_Operators, AdditionAssignment) {
+    gltkmath::Vector4 vectorOne{ 1, 2, 3, 4 };
+    gltkmath::Vector4 vectorTwo{ 3, 2, 1, 0 };
+    vectorOne += vectorTwo;
+    EXPECT_EQ(vectorOne.x, 4);
+    EXPECT_EQ(vectorOne.y, 4);
+    EXPECT_EQ(vectorOne.z, 4);
+    EXPECT_EQ(vectorOne.w, 4);
+}

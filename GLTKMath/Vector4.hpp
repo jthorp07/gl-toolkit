@@ -104,6 +104,21 @@ public:
             static_cast<ResultType>(w) / static_cast<ResultType>(divisor)
         );
     }
+
+    /**
+     * @brief Component-wise addition assignment
+     * @param other Vector to add to this
+     * @return This
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector4& operator+=(const Vector4<U>& other) {
+        x += other.x;
+        y += other.y;
+        z += other.z;
+        w += other.w;
+        return *this;
+    }
 };
 
 // Type deduction
