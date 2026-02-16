@@ -76,3 +76,22 @@ TEST(Vector4_Operators, ScalarMultiplication) {
     EXPECT_FLOAT_EQ(floatIntResult.z, 7.5f);
     EXPECT_FLOAT_EQ(floatIntResult.w, 10.0f);
 }
+
+TEST(Vector4_Operators, ScalarDivision) {
+    gltkmath::Vector4 intVector{ 6, 4, 2, 4 };
+    gltkmath::Vector4 floatVector{ 2.0f, 4.0f, 5.0f, 4.0f };
+
+    // Vector4<int> / int
+    gltkmath::Vector4 intIntResult = intVector / 2;
+    EXPECT_EQ(intIntResult.x, 3);
+    EXPECT_EQ(intIntResult.y, 2);
+    EXPECT_EQ(intIntResult.z, 1);
+    EXPECT_EQ(intIntResult.w, 2);
+
+    // Vector4<float> / int
+    gltkmath::Vector4 floatIntResult = floatVector / 2;
+    EXPECT_FLOAT_EQ(floatIntResult.x, 1.0f);
+    EXPECT_FLOAT_EQ(floatIntResult.y, 2.0f);
+    EXPECT_FLOAT_EQ(floatIntResult.z, 2.5f);
+    EXPECT_FLOAT_EQ(floatIntResult.w, 2.0f);
+}
