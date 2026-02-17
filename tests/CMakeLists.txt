@@ -19,7 +19,7 @@ target_link_libraries(GLTKTests
     PRIVATE
     GTest::gtest_main
     GLTKMath
-    # Core
+    Core
 )
 
 include(GoogleTest)
