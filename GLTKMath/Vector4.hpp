@@ -134,6 +134,21 @@ public:
         w -= other.w;
         return *this;
     }
+
+    /**
+     * @brief Scalar multiplication assignment
+     * @param scalar Value to scale by
+     * @return This
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector4& operator*=(U scalar) {
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
+        w *= scalar;
+        return *this;
+    }
 };
 
 // Type deduction
