@@ -7,6 +7,7 @@
 #ifndef VECTOR4_HPP
 #define VECTOR4_HPP
 
+#include <cmath>
 #include <type_traits>
 
 namespace gltkmath {
@@ -148,6 +149,37 @@ public:
         z *= scalar;
         w *= scalar;
         return *this;
+    }
+
+    /**
+     * @brief Scalar division assignment
+     * @param divisor Value to divide by
+     * @return This
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector4& operator/=(U divisor) {
+        x /= divisor;
+        y /= divisor;
+        z /= divisor;
+        w /= divisor;
+        return *this;
+    }
+
+    /**
+     * @brief The scalar magnitude of the vector using 3D Euclidean distance.
+     *
+     * @warning Only usable with floating point vectors
+     *
+     * @return Magnitude of the vector
+     */
+    [[nodiscard]] constexpr inline T magnitude() const requires std::floating_point<T> {
+        return std::sqrt(
+            std::pow(x, 2.0) +
+            std::pow(y, 2.0) +
+            std::pow(z, 2.0) +
+            std::pow(w, 2.0)
+        );
     }
 };
 

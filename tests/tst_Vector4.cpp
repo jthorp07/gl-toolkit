@@ -124,3 +124,19 @@ TEST(Vector4_Operators, ScalarMultiplicationAssignment) {
     EXPECT_EQ(vector.z, 6);
     EXPECT_EQ(vector.w, 8);
 }
+
+TEST(Vector4_Operators, ScalarDivisionAssignment) {
+    gltkmath::Vector4 vector{ 10.0f, 5.0f, 3.6f, 7.0f };
+    vector /= 2;
+    EXPECT_FLOAT_EQ(vector.x, 5.0f);
+    EXPECT_FLOAT_EQ(vector.y, 2.5f);
+    EXPECT_FLOAT_EQ(vector.z, 1.8f);
+    EXPECT_FLOAT_EQ(vector.w, 3.5f);
+}
+
+TEST(Vector4, magnitude) {
+    EXPECT_FLOAT_EQ(gltkmath::Vector4(3.0f, 0.0f, -4.0f, 0.0f).magnitude(), 5.0f);
+    EXPECT_FLOAT_EQ(gltkmath::Vector4(0.0f, 0.0f, 10.0f, 0.0f).magnitude(), 10.0f);
+    gltkmath::Vector4 vector{ 0.0, 3.0, 4.0, 12.0 };
+    EXPECT_DOUBLE_EQ(vector.magnitude(), 13.0);
+}
