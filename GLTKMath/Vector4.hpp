@@ -32,7 +32,9 @@ public:
 
     /**
      * @brief Component-wise addition
+     *
      * @param other Vector to add
+     *
      * @return Vector whose components are the sum of this and other
      */
     template<typename U>
@@ -49,7 +51,9 @@ public:
 
     /**
      * @brief Component-wise subtraction
+     *
      * @param other Vector to add
+     *
      * @return Vector whose components are the sum of this and other
      */
     template<typename U>
@@ -66,6 +70,7 @@ public:
 
     /**
      * @brief Unary subtraction (negation)
+     *
      * @return Vector whose components are the negation of this vector's components
      */
     constexpr inline Vector4 operator-() const {
@@ -74,7 +79,9 @@ public:
 
     /**
      * @brief Scalar multiplication
+     *
      * @param scalar Value to scale by
+     *
      * @return Vector whose components are scaled by scalar
      */
     template<typename U>
@@ -91,7 +98,9 @@ public:
 
     /**
      * @brief Scalar division
+     *
      * @param divisor Value to divide by
+     *
      * @return Vector whose components are divided by divisor
      */
     template<typename U>
@@ -108,7 +117,9 @@ public:
 
     /**
      * @brief Component-wise addition assignment
+     *
      * @param other Vector to add to this
+     *
      * @return This
      */
     template<typename U>
@@ -123,7 +134,9 @@ public:
 
     /**
      * @brief Component-wise subtraction assignment
+     *
      * @param other Vector to subtract from this
+     *
      * @return This
      */
     template<typename U>
@@ -138,7 +151,9 @@ public:
 
     /**
      * @brief Scalar multiplication assignment
+     *
      * @param scalar Value to scale by
+     *
      * @return This
      */
     template<typename U>
@@ -153,7 +168,9 @@ public:
 
     /**
      * @brief Scalar division assignment
+     *
      * @param divisor Value to divide by
+     *
      * @return This
      */
     template<typename U>
