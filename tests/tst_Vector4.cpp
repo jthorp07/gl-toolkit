@@ -160,3 +160,12 @@ TEST(Vector4, cast) {
     ::testing::StaticAssertTypeEq<decltype(gltkmath::Vector4(1, 2, 3, 4).cast<float>()),
                                   gltkmath::Vector4<float>>();
 }
+
+TEST(Vector4, dot) {
+    gltkmath::Vector4 intVector{ 1, 2, 3, 4 };
+    gltkmath::Vector4 floatVector{ 1.0f, 2.0f, 3.0f, 4.0f };
+    EXPECT_FLOAT_EQ(intVector.dot(floatVector), 30.0f);
+    EXPECT_EQ(intVector.dot(intVector), 30);
+    gltkmath::Vector4 doubleVector{ 2.0, 5.0, -7.0, 0.0 };
+    EXPECT_DOUBLE_EQ(doubleVector.dot(gltkmath::Vector4(2.0, -3.0, -1.0, 3.0)), -4.0);
+}
