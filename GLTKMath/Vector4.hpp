@@ -206,6 +206,22 @@ public:
     [[nodiscard]] constexpr inline T magnitudeSquared() const {
         return x * x + y * y + z * z + w * w;
     }
+
+    /**
+     * @brief Copies this vector's components to a new vector casted to
+     *        NewType
+     * @return Copied casted vector
+     */
+    template<typename NewType>
+        requires std::is_arithmetic_v<NewType>
+    [[nodiscard]] constexpr inline Vector4<NewType> cast() const {
+        return Vector4<NewType>(
+            static_cast<NewType>(x),
+            static_cast<NewType>(y),
+            static_cast<NewType>(z),
+            static_cast<NewType>(w)
+        );
+    }
 };
 
 // Type deduction

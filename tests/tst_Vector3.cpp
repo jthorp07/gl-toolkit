@@ -142,6 +142,9 @@ TEST(Vector3, magnitudeSquared) {
 TEST(Vector3, cast) {
     gltkmath::Vector3 intVector{ 1, 2, 3 };
     gltkmath::Vector3 doubleVector = intVector.cast<double>();
+    EXPECT_DOUBLE_EQ(doubleVector.x, 1.0);
+    EXPECT_DOUBLE_EQ(doubleVector.y, 2.0);
+    EXPECT_DOUBLE_EQ(doubleVector.z, 3.0);
     std::ignore = doubleVector;
     ::testing::StaticAssertTypeEq<decltype(intVector), gltkmath::Vector3<int>>();
     ::testing::StaticAssertTypeEq<decltype(doubleVector), gltkmath::Vector3<double>>();
