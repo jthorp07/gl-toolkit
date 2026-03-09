@@ -198,6 +198,14 @@ public:
             std::pow(w, 2.0)
         );
     }
+
+    /**
+     * @brief The scalar magnitude of the vector squared using 3D Euclidean distance.
+     * @return Magnitude of the vector squared
+     */
+    [[nodiscard]] constexpr inline T magnitudeSquared() const {
+        return x * x + y * y + z * z + w * w;
+    }
 };
 
 // Type deduction

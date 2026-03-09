@@ -140,3 +140,9 @@ TEST(Vector4, magnitude) {
     gltkmath::Vector4 vector{ 0.0, 3.0, 4.0, 12.0 };
     EXPECT_DOUBLE_EQ(vector.magnitude(), 13.0);
 }
+
+TEST(Vector4, magnitudeSquared) {
+    EXPECT_EQ(gltkmath::Vector4(1, 2, 3, 1).magnitudeSquared(), 15);
+    gltkmath::Vector4 vector{ 3.0, 5.0, 4.0, 2.0 };
+    EXPECT_DOUBLE_EQ(vector.magnitudeSquared(), 54.0);
+}
