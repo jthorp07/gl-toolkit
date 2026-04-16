@@ -6,6 +6,7 @@
 
 #include <gtest/gtest.h>
 #include "Matrix3.hpp"
+#include "Vector3.hpp"
 
 TEST(Matrix3_Constructors, Default) {
     gltkmath::Matrix3<float> matrix{};
@@ -38,13 +39,13 @@ TEST(Matrix3_Constructors, ComponentWise) {
         7.0f, 8.0f, 9.0f
     };
     EXPECT_FLOAT_EQ(matrix.c0r0, 1.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r1, 2.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r2, 3.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r0, 4.0f);
+    EXPECT_FLOAT_EQ(matrix.c0r1, 4.0f);
+    EXPECT_FLOAT_EQ(matrix.c0r2, 7.0f);
+    EXPECT_FLOAT_EQ(matrix.c1r0, 2.0f);
     EXPECT_FLOAT_EQ(matrix.c1r1, 5.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r2, 6.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r0, 7.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r1, 8.0f);
+    EXPECT_FLOAT_EQ(matrix.c1r2, 8.0f);
+    EXPECT_FLOAT_EQ(matrix.c2r0, 3.0f);
+    EXPECT_FLOAT_EQ(matrix.c2r1, 6.0f);
     EXPECT_FLOAT_EQ(matrix.c2r2, 9.0f);
 }
 
@@ -136,4 +137,21 @@ TEST(Matrix3_Operators, ScalarMultiplicationLeft) {
     EXPECT_FLOAT_EQ(result.c2r0, 14.0f);
     EXPECT_FLOAT_EQ(result.c2r1, 16.0f);
     EXPECT_FLOAT_EQ(result.c2r2, 18.0f);
+}
+
+TEST(Matrix3_Operators, VectorMultiplication) {
+    gltkmath::Matrix3 matrix{
+        2.0f, 2.0f, 2.0f,
+        4.0f, 2.0f, 6.0f,
+        8.0f, 8.0f, 2.0f
+    };
+    gltkmath::Vector3 vector{2.0f, 2.0f, 4.0f};
+    gltkmath::Vector3 result = matrix * vector;
+
+    // (2*2) + (2*2) + (2*4) = 16
+    EXPECT_FLOAT_EQ(result.x, 16.0f);
+    // (4*2) + (2*2) + (6*4) = 36
+    EXPECT_FLOAT_EQ(result.y, 36.0f);
+    // (8*2) + (8*2) + (2*4) = 40
+    EXPECT_FLOAT_EQ(result.z, 40.0f);
 }

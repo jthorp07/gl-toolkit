@@ -7,6 +7,8 @@
 #ifndef MATRIX3_HPP
 #define MATRIX3_HPP
 
+#include "Vector3.hpp"
+
 #include <cmath>
 #include <type_traits>
 
@@ -41,9 +43,9 @@ public:
      * @param c2r2 Third column, third row component
      */
     constexpr Matrix3(
-        T c0r0, T c0r1, T c0r2,
-        T c1r0, T c1r1, T c1r2,
-        T c2r0, T c2r1, T c2r2
+        T c0r0, T c1r0, T c2r0,
+        T c0r1, T c1r1, T c2r1,
+        T c0r2, T c1r2, T c2r2
     ) : c0r0(c0r0), c0r1(c0r1), c0r2(c0r2),
         c1r0(c1r0), c1r1(c1r1), c1r2(c1r2),
         c2r0(c2r0), c2r1(c2r1), c2r2(c2r2) {};
@@ -156,6 +158,33 @@ public:
             static_cast<ResultType>(matrix.c2r1) * static_cast<ResultType>(scalar),
             static_cast<ResultType>(matrix.c2r2) * static_cast<ResultType>(scalar)
         };
+    }
+
+    /**
+     * @brief Matrix-vector multiplication
+     * 
+     * @param vector Vector to multiply by
+     * 
+     * @return Vector resulting from the multiplication
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Vector3<std::common_type_t<T, U>> operator*(Vector3<U> vector) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Vector3<ResultType>(
+            // Row 1 x Vector
+            (static_cast<ResultType>(c0r0) * static_cast<ResultType>(vector.x)) +
+            (static_cast<ResultType>(c1r0) * static_cast<ResultType>(vector.y)) +
+            (static_cast<ResultType>(c2r0) * static_cast<ResultType>(vector.z)),
+            // Row 2 x Vector
+            (static_cast<ResultType>(c0r1) * static_cast<ResultType>(vector.x)) +
+            (static_cast<ResultType>(c1r1) * static_cast<ResultType>(vector.y)) +
+            (static_cast<ResultType>(c2r1) * static_cast<ResultType>(vector.z)),
+            // Row 3 x Vector
+            (static_cast<ResultType>(c0r2) * static_cast<ResultType>(vector.x)) +
+            (static_cast<ResultType>(c1r2) * static_cast<ResultType>(vector.y)) +
+            (static_cast<ResultType>(c2r2) * static_cast<ResultType>(vector.z))
+        );
     }
         
 };
