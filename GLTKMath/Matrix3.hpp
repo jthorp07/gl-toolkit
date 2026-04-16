@@ -246,7 +246,7 @@ public:
      */
     template<typename U>
         requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
-    constexpr inline Matrix3<std::common_type_t<T, U>>& operator+=(const Matrix3<U>& other) {
+    constexpr inline Matrix3& operator+=(const Matrix3<U>& other) {
         c0r0 += static_cast<T>(other.c0r0);
         c0r1 += static_cast<T>(other.c0r1);
         c0r2 += static_cast<T>(other.c0r2);
@@ -269,7 +269,7 @@ public:
      */
     template<typename U>
         requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
-    constexpr inline Matrix3<std::common_type_t<T, U>>& operator-=(const Matrix3<U>& other) {
+    constexpr inline Matrix3& operator-=(const Matrix3<U>& other) {
         c0r0 -= static_cast<T>(other.c0r0);
         c0r1 -= static_cast<T>(other.c0r1);
         c0r2 -= static_cast<T>(other.c0r2);
@@ -279,6 +279,29 @@ public:
         c2r0 -= static_cast<T>(other.c2r0);
         c2r1 -= static_cast<T>(other.c2r1);
         c2r2 -= static_cast<T>(other.c2r2);
+
+        return *this;
+    }
+
+    /**
+     * @brief Scalar multiplication assignment
+     * 
+     * @param scalar Value to scale by
+     * 
+     * @return This
+     */
+    template<typename U>
+        requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
+    constexpr inline Matrix3& operator*=(const U& scalar) {
+        c0r0 *= static_cast<T>(scalar);
+        c0r1 *= static_cast<T>(scalar);
+        c0r2 *= static_cast<T>(scalar);
+        c1r0 *= static_cast<T>(scalar);
+        c1r1 *= static_cast<T>(scalar);
+        c1r2 *= static_cast<T>(scalar);
+        c2r0 *= static_cast<T>(scalar);
+        c2r1 *= static_cast<T>(scalar);
+        c2r2 *= static_cast<T>(scalar);
 
         return *this;
     }
