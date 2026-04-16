@@ -95,6 +95,19 @@ public:
             static_cast<ResultType>(c2r2) - static_cast<ResultType>(other.c2r2)
         };
     }
+
+    /**
+     * @brief Unary subtraction (negation)
+     * 
+     * @return Matrix whose components are the negation of this
+     */
+    constexpr inline Matrix3 operator-() const requires std::is_signed_v<T> {
+        return Matrix3{
+            -c0r0, -c0r1, -c0r2,
+            -c1r0, -c1r1, -c1r2,
+            -c2r0, -c2r1, -c2r2
+        };
+    }
         
 };
 
