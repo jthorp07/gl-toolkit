@@ -320,6 +320,21 @@ public:
 
         return *this;
     }
+
+    /**
+     * @brief Copies this matrix's components to a new matrix casted to NewType
+     * 
+     * @return Copied casted matrix
+     */
+    template<typename NewType>
+        requires std::is_arithmetic_v<NewType>
+    [[nodiscard]] constexpr inline Matrix3<NewType> cast() const {
+        return Matrix3<NewType>{
+            static_cast<NewType>(c0r0), static_cast<NewType>(c1r0), static_cast<NewType>(c2r0),
+            static_cast<NewType>(c0r1), static_cast<NewType>(c1r1), static_cast<NewType>(c2r1),
+            static_cast<NewType>(c0r2), static_cast<NewType>(c1r2), static_cast<NewType>(c2r2)
+        };
+    }
 };
 
 // Type deduction

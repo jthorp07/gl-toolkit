@@ -290,3 +290,19 @@ TEST(Matrix3_Operators, MatrixMultiplicationAssignment) {
     EXPECT_FLOAT_EQ(matrix.c2r1, -42.0f);
     EXPECT_FLOAT_EQ(matrix.c2r2, -66.0f);
 }
+
+TEST(Matrix3, cast) {
+    gltkmath::Matrix3 floatMatrix{
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+    gltkmath::Matrix3 doubleMatrix = floatMatrix.cast<double>();
+    std::ignore = doubleMatrix;
+    ::testing::StaticAssertTypeEq<decltype(floatMatrix), gltkmath::Matrix3<float>>();
+    ::testing::StaticAssertTypeEq<decltype(doubleMatrix), gltkmath::Matrix3<double>>();
+    ::testing::StaticAssertTypeEq<
+        decltype(gltkmath::Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9).cast<std::size_t>()),
+        gltkmath::Matrix3<std::size_t>
+    >();
+}
