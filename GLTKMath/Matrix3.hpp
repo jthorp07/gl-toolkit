@@ -132,6 +132,31 @@ public:
             static_cast<ResultType>(c2r2) * static_cast<ResultType>(scalar)
         };
     }
+
+    /**
+     * @brief Matrix-scalar multiplication with scalar on the left
+     * 
+     * @param scalar Value to scale by
+     * @param matrix Matrix to scale
+     * 
+     * @return Matrix whose components are scaled by scalar
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    friend constexpr inline Matrix3<std::common_type_t<T, U>> operator*(U scalar, const Matrix3<T>& matrix) {
+        using ResultType = std::common_type_t<T, U>;
+        return Matrix3{
+            static_cast<ResultType>(matrix.c0r0) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c0r1) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c0r2) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c1r0) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c1r1) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c1r2) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c2r0) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c2r1) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.c2r2) * static_cast<ResultType>(scalar)
+        };
+    }
         
 };
 
