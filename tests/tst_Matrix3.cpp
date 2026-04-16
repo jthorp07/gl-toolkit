@@ -47,3 +47,21 @@ TEST(Matrix3_Constructors, ComponentWise) {
     EXPECT_FLOAT_EQ(matrix.c2r1, 8.0f);
     EXPECT_FLOAT_EQ(matrix.c2r2, 9.0f);
 }
+
+TEST(Matrix3_Operators, Addition) {
+    gltkmath::Matrix3 matrix{
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+    gltkmath::Matrix3 result = matrix + matrix;
+    EXPECT_FLOAT_EQ(result.c0r0, 2.0f);
+    EXPECT_FLOAT_EQ(result.c0r1, 4.0f);
+    EXPECT_FLOAT_EQ(result.c0r2, 6.0f);
+    EXPECT_FLOAT_EQ(result.c1r0, 8.0f);
+    EXPECT_FLOAT_EQ(result.c1r1, 10.0f);
+    EXPECT_FLOAT_EQ(result.c1r2, 12.0f);
+    EXPECT_FLOAT_EQ(result.c2r0, 14.0f);
+    EXPECT_FLOAT_EQ(result.c2r1, 16.0f);
+    EXPECT_FLOAT_EQ(result.c2r2, 18.0f);
+}

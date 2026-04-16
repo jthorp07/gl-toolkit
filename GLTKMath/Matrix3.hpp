@@ -8,6 +8,7 @@
 #define MATRIX3_HPP
 
 #include <cmath>
+#include <type_traits>
 
 namespace gltkmath {
 
@@ -26,7 +27,18 @@ public:
     constexpr Matrix3() = default;
 
     /**
-     * @brief Component-wise constructor - Explicitly initializes with 9 components
+     * @brief Component-wise constructor - Explicitly initializes with 9
+     *        components
+     * 
+     * @param c0r0 First column, first row component
+     * @param c0r1 First column, second row component
+     * @param c0r2 First column, third row component
+     * @param c1r0 Second column, first row component
+     * @param c1r1 Second column, second row component
+     * @param c1r2 Second column, third row component
+     * @param c2r0 Third column, first row component
+     * @param c2r1 Third column, second row component
+     * @param c2r2 Third column, third row component
      */
     constexpr Matrix3(
         T c0r0, T c0r1, T c0r2,
@@ -35,6 +47,30 @@ public:
     ) : c0r0(c0r0), c0r1(c0r1), c0r2(c0r2),
         c1r0(c1r0), c1r1(c1r1), c1r2(c1r2),
         c2r0(c2r0), c2r1(c2r1), c2r2(c2r2) {};
+
+    /**
+     * @brief Component-wise addition
+     * 
+     * @param other Matrix to add
+     * 
+     * @return Matrix whose components are the sum of this and other
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Matrix3<std::common_type_t<T, U>> operator+(const Matrix3<U>& other) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Matrix3{
+            static_cast<ResultType>(c0r0) + static_cast<ResultType>(other.c0r0),
+            static_cast<ResultType>(c0r1) + static_cast<ResultType>(other.c0r1),
+            static_cast<ResultType>(c0r2) + static_cast<ResultType>(other.c0r2),
+            static_cast<ResultType>(c1r0) + static_cast<ResultType>(other.c1r0),
+            static_cast<ResultType>(c1r1) + static_cast<ResultType>(other.c1r1),
+            static_cast<ResultType>(c1r2) + static_cast<ResultType>(other.c1r2),
+            static_cast<ResultType>(c2r0) + static_cast<ResultType>(other.c2r0),
+            static_cast<ResultType>(c2r1) + static_cast<ResultType>(other.c2r1),
+            static_cast<ResultType>(c2r2) + static_cast<ResultType>(other.c2r2)
+        };
+    }
         
 };
 
