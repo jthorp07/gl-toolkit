@@ -85,7 +85,7 @@ public:
      * @brief Unary subtraction (negation)
      * @return Vector whose components are the negation of this vector's components
      */
-    constexpr inline Vector3 operator-() const {
+    constexpr inline Vector3 operator-() const requires std::is_signed_v<T> {
         return Vector3(-x, -y, -z);
     }
 
