@@ -197,3 +197,26 @@ TEST(Matrix3_Operators, MatrixMultiplication) {
     EXPECT_FLOAT_EQ(resultBA.c2r1,  48.0f);
     EXPECT_FLOAT_EQ(resultBA.c2r2, -54.0f);
 }
+
+TEST(Matrix3_Operators, AdditionAssignment) {
+    gltkmath::Matrix3 matrix{
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+    gltkmath::Matrix3 other{
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+    matrix += other;
+    EXPECT_FLOAT_EQ(matrix.c0r0, 2.0f);
+    EXPECT_FLOAT_EQ(matrix.c0r1, 8.0f);
+    EXPECT_FLOAT_EQ(matrix.c0r2, 14.0f);
+    EXPECT_FLOAT_EQ(matrix.c1r0, 4.0f);
+    EXPECT_FLOAT_EQ(matrix.c1r1, 10.0f);
+    EXPECT_FLOAT_EQ(matrix.c1r2, 16.0f);
+    EXPECT_FLOAT_EQ(matrix.c2r0, 6.0f);
+    EXPECT_FLOAT_EQ(matrix.c2r1, 12.0f);
+    EXPECT_FLOAT_EQ(matrix.c2r2, 18.0f);
+}

@@ -8,6 +8,7 @@
 #define MATRIX3_HPP
 
 #include "Vector3.hpp"
+#include "mathdefs.hpp"
 
 #include <cmath>
 #include <type_traits>
@@ -234,6 +235,29 @@ public:
             static_cast<ResultType>(c1r2) * static_cast<ResultType>(other.c2r1) +
             static_cast<ResultType>(c2r2) * static_cast<ResultType>(other.c2r2)
         };
+    }
+
+    /**
+     * @brief Component-wise addition assignment
+     * 
+     * @param other Matrix to add to this
+     * 
+     * @return This
+     */
+    template<typename U>
+        requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
+    constexpr inline Matrix3<std::common_type_t<T, U>>& operator+=(const Matrix3<U>& other) {
+        c0r0 += static_cast<T>(other.c0r0);
+        c0r1 += static_cast<T>(other.c0r1);
+        c0r2 += static_cast<T>(other.c0r2);
+        c1r0 += static_cast<T>(other.c1r0);
+        c1r1 += static_cast<T>(other.c1r1);
+        c1r2 += static_cast<T>(other.c1r2);
+        c2r0 += static_cast<T>(other.c2r0);
+        c2r1 += static_cast<T>(other.c2r1);
+        c2r2 += static_cast<T>(other.c2r2);
+
+        return *this;
     }
 };
 
