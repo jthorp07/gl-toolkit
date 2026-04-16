@@ -71,6 +71,30 @@ public:
             static_cast<ResultType>(c2r2) + static_cast<ResultType>(other.c2r2)
         };
     }
+
+    /**
+     * @brief Component-wise subtraction
+     * 
+     * @param other Matrix to subtract
+     * 
+     * @return Matrix whose components are the difference of this and other
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Matrix3<std::common_type_t<T, U>> operator-(const Matrix3<U>& other) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Matrix3{
+            static_cast<ResultType>(c0r0) - static_cast<ResultType>(other.c0r0),
+            static_cast<ResultType>(c0r1) - static_cast<ResultType>(other.c0r1),
+            static_cast<ResultType>(c0r2) - static_cast<ResultType>(other.c0r2),
+            static_cast<ResultType>(c1r0) - static_cast<ResultType>(other.c1r0),
+            static_cast<ResultType>(c1r1) - static_cast<ResultType>(other.c1r1),
+            static_cast<ResultType>(c1r2) - static_cast<ResultType>(other.c1r2),
+            static_cast<ResultType>(c2r0) - static_cast<ResultType>(other.c2r0),
+            static_cast<ResultType>(c2r1) - static_cast<ResultType>(other.c2r1),
+            static_cast<ResultType>(c2r2) - static_cast<ResultType>(other.c2r2)
+        };
+    }
         
 };
 
