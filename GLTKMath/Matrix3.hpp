@@ -172,21 +172,69 @@ public:
     constexpr inline Vector3<std::common_type_t<T, U>> operator*(Vector3<U> vector) const {
         using ResultType = std::common_type_t<T, U>;
         return Vector3<ResultType>(
-            // Row 1 x Vector
             (static_cast<ResultType>(c0r0) * static_cast<ResultType>(vector.x)) +
             (static_cast<ResultType>(c1r0) * static_cast<ResultType>(vector.y)) +
             (static_cast<ResultType>(c2r0) * static_cast<ResultType>(vector.z)),
-            // Row 2 x Vector
+
             (static_cast<ResultType>(c0r1) * static_cast<ResultType>(vector.x)) +
             (static_cast<ResultType>(c1r1) * static_cast<ResultType>(vector.y)) +
             (static_cast<ResultType>(c2r1) * static_cast<ResultType>(vector.z)),
-            // Row 3 x Vector
+
             (static_cast<ResultType>(c0r2) * static_cast<ResultType>(vector.x)) +
             (static_cast<ResultType>(c1r2) * static_cast<ResultType>(vector.y)) +
             (static_cast<ResultType>(c2r2) * static_cast<ResultType>(vector.z))
         );
     }
-        
+
+    /**
+     * @brief Matrix multiplication
+     * 
+     * @param other Matrix to multiply by
+     * 
+     * @return Matrix resulting from the multiplication
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    constexpr inline Matrix3<std::common_type_t<T, U>> operator*(const Matrix3<U>& other) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Matrix3{
+            static_cast<ResultType>(c0r0) * static_cast<ResultType>(other.c0r0) +
+            static_cast<ResultType>(c1r0) * static_cast<ResultType>(other.c0r1) +
+            static_cast<ResultType>(c2r0) * static_cast<ResultType>(other.c0r2),
+
+            static_cast<ResultType>(c0r0) * static_cast<ResultType>(other.c1r0) +
+            static_cast<ResultType>(c1r0) * static_cast<ResultType>(other.c1r1) +
+            static_cast<ResultType>(c2r0) * static_cast<ResultType>(other.c1r2),
+
+            static_cast<ResultType>(c0r0) * static_cast<ResultType>(other.c2r0) +
+            static_cast<ResultType>(c1r0) * static_cast<ResultType>(other.c2r1) +
+            static_cast<ResultType>(c2r0) * static_cast<ResultType>(other.c2r2),
+
+            static_cast<ResultType>(c0r1) * static_cast<ResultType>(other.c0r0) +
+            static_cast<ResultType>(c1r1) * static_cast<ResultType>(other.c0r1) +
+            static_cast<ResultType>(c2r1) * static_cast<ResultType>(other.c0r2),
+
+            static_cast<ResultType>(c0r1) * static_cast<ResultType>(other.c1r0) +
+            static_cast<ResultType>(c1r1) * static_cast<ResultType>(other.c1r1) +
+            static_cast<ResultType>(c2r1) * static_cast<ResultType>(other.c1r2),
+
+            static_cast<ResultType>(c0r1) * static_cast<ResultType>(other.c2r0) +
+            static_cast<ResultType>(c1r1) * static_cast<ResultType>(other.c2r1) +
+            static_cast<ResultType>(c2r1) * static_cast<ResultType>(other.c2r2),
+
+            static_cast<ResultType>(c0r2) * static_cast<ResultType>(other.c0r0) +
+            static_cast<ResultType>(c1r2) * static_cast<ResultType>(other.c0r1) +
+            static_cast<ResultType>(c2r2) * static_cast<ResultType>(other.c0r2),
+
+            static_cast<ResultType>(c0r2) * static_cast<ResultType>(other.c1r0) +
+            static_cast<ResultType>(c1r2) * static_cast<ResultType>(other.c1r1) +
+            static_cast<ResultType>(c2r2) * static_cast<ResultType>(other.c1r2),
+
+            static_cast<ResultType>(c0r2) * static_cast<ResultType>(other.c2r0) +
+            static_cast<ResultType>(c1r2) * static_cast<ResultType>(other.c2r1) +
+            static_cast<ResultType>(c2r2) * static_cast<ResultType>(other.c2r2)
+        };
+    }
 };
 
 // Type deduction

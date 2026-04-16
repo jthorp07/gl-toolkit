@@ -148,10 +148,52 @@ TEST(Matrix3_Operators, VectorMultiplication) {
     gltkmath::Vector3 vector{2.0f, 2.0f, 4.0f};
     gltkmath::Vector3 result = matrix * vector;
 
-    // (2*2) + (2*2) + (2*4) = 16
     EXPECT_FLOAT_EQ(result.x, 16.0f);
-    // (4*2) + (2*2) + (6*4) = 36
     EXPECT_FLOAT_EQ(result.y, 36.0f);
-    // (8*2) + (8*2) + (2*4) = 40
     EXPECT_FLOAT_EQ(result.z, 40.0f);
+}
+
+TEST(Matrix3_Operators, MatrixMultiplication) {
+    gltkmath::Matrix3 matrixA{
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+    gltkmath::Matrix3 matrixB{
+        -1.0f,  4.0f, -7.0f,
+         2.0f, -5.0f,  8.0f,
+        -3.0f,  6.0f, -9.0f
+    };
+    gltkmath::Matrix3 resultAB = matrixA * matrixB;
+    gltkmath::Matrix3 resultBA = matrixB * matrixA;
+
+    /*
+        | 1  2  3 |   | -1   4  -7 |   |  -6  12  -18 |
+        | 4  5  6 | * |  2  -5   8 | = | -12  27  -42 |
+        | 7  8  9 |   | -3   6  -9 |   | -18  42  -66 |
+    */
+    EXPECT_FLOAT_EQ(resultAB.c0r0, -6.0f);
+    EXPECT_FLOAT_EQ(resultAB.c0r1, -12.0f);
+    EXPECT_FLOAT_EQ(resultAB.c0r2, -18.0f);
+    EXPECT_FLOAT_EQ(resultAB.c1r0,  12.0f);
+    EXPECT_FLOAT_EQ(resultAB.c1r1,  27.0f);
+    EXPECT_FLOAT_EQ(resultAB.c1r2,  42.0f);
+    EXPECT_FLOAT_EQ(resultAB.c2r0, -18.0f);
+    EXPECT_FLOAT_EQ(resultAB.c2r1, -42.0f);
+    EXPECT_FLOAT_EQ(resultAB.c2r2, -66.0f);
+
+    /*
+        | -1   4  -7 |   | 1  2  3 |   | -34  -38  -42 |
+        |  2  -5   8 | * | 4  5  6 | = |  38   43   48 |
+        | -3   6  -9 |   | 7  8  9 |   | -42  -48  -54 |
+    */
+    EXPECT_FLOAT_EQ(resultBA.c0r0, -34.0f);
+    EXPECT_FLOAT_EQ(resultBA.c0r1,  38.0f);
+    EXPECT_FLOAT_EQ(resultBA.c0r2, -42.0f);
+    EXPECT_FLOAT_EQ(resultBA.c1r0, -38.0f);
+    EXPECT_FLOAT_EQ(resultBA.c1r1,  43.0f);
+    EXPECT_FLOAT_EQ(resultBA.c1r2, -48.0f);
+    EXPECT_FLOAT_EQ(resultBA.c2r0, -42.0f);
+    EXPECT_FLOAT_EQ(resultBA.c2r1,  48.0f);
+    EXPECT_FLOAT_EQ(resultBA.c2r2, -54.0f);
 }
