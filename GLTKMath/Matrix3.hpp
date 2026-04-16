@@ -305,6 +305,21 @@ public:
 
         return *this;
     }
+
+    /**
+     * @brief Matrix multiplication assignment
+     * 
+     * @param other Matrix to multiply by
+     * 
+     * @return This
+     */
+    template<typename U>
+        requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
+    constexpr inline Matrix3& operator*=(const Matrix3<U>& other) {
+        *this = *this * other;
+
+        return *this;
+    }
 };
 
 // Type deduction
