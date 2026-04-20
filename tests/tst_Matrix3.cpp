@@ -322,3 +322,21 @@ TEST(Matrix3, determinant) {
     };
     EXPECT_DOUBLE_EQ(matrixTwo.determinant(), 24.1758);
 }
+
+TEST(Matrix3, transpose) {
+    gltkmath::Matrix3 matrix{
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f
+    };
+    gltkmath::Matrix3 transposed = matrix.transpose();
+    EXPECT_FLOAT_EQ(transposed.c0r0, 1.0f);
+    EXPECT_FLOAT_EQ(transposed.c0r1, 2.0f);
+    EXPECT_FLOAT_EQ(transposed.c0r2, 3.0f);
+    EXPECT_FLOAT_EQ(transposed.c1r0, 4.0f);
+    EXPECT_FLOAT_EQ(transposed.c1r1, 5.0f);
+    EXPECT_FLOAT_EQ(transposed.c1r2, 6.0f);
+    EXPECT_FLOAT_EQ(transposed.c2r0, 7.0f);
+    EXPECT_FLOAT_EQ(transposed.c2r1, 8.0f);
+    EXPECT_FLOAT_EQ(transposed.c2r2, 9.0f);
+}

@@ -344,6 +344,17 @@ public:
                (c1r0 * (c0r1 * c2r2 - c0r2 * c2r1)) +
                (c2r0 * (c0r1 * c1r2 - c0r2 * c1r1));
     }
+
+    /**
+     * @brief Transpose of the matrix
+     */
+    [[nodiscard]] constexpr inline Matrix3 transpose() const {
+        return Matrix3{
+            c0r0, c0r1, c0r2,
+            c1r0, c1r1, c1r2,
+            c2r0, c2r1, c2r2
+        };
+    }
 };
 
 // Type deduction
