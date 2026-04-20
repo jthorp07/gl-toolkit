@@ -335,6 +335,15 @@ public:
             static_cast<NewType>(c0r2), static_cast<NewType>(c1r2), static_cast<NewType>(c2r2)
         };
     }
+
+    /**
+     * @brief The determinant of the matrix
+     */
+    [[nodiscard]] constexpr inline T determinant() const {
+        return (c0r0 * (c1r1 * c2r2 - c1r2 * c2r1)) -
+               (c1r0 * (c0r1 * c2r2 - c0r2 * c2r1)) +
+               (c2r0 * (c0r1 * c1r2 - c0r2 * c1r1));
+    }
 };
 
 // Type deduction

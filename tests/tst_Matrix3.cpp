@@ -306,3 +306,19 @@ TEST(Matrix3, cast) {
         gltkmath::Matrix3<std::size_t>
     >();
 }
+
+TEST(Matrix3, determinant) {
+    gltkmath::Matrix3 matrix{
+         3, 4, -7,
+         3, 3,  10,
+        -1, 4, -5
+    };
+    EXPECT_EQ(matrix.determinant(), -250);
+
+    gltkmath::Matrix3 matrixTwo{
+        -5.5,  0.0,    7.0,
+         0.5, -0.333,  6.0,
+         0.0,  0.0,   13.2
+    };
+    EXPECT_DOUBLE_EQ(matrixTwo.determinant(), 24.1758);
+}
