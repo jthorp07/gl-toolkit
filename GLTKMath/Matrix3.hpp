@@ -9,8 +9,11 @@
 
 #include "Vector3.hpp"
 #include "mathdefs.hpp"
+#include "errordefs.hpp"
 
+#include <array>
 #include <cmath>
+#include <stdexcept>
 #include <type_traits>
 
 namespace gltkmath {
@@ -18,16 +21,14 @@ namespace gltkmath {
 template<typename T>
     requires std::is_arithmetic_v<T>
 class Matrix3 {
+private:
+    std::array<T, 9> data;
 public:
-
-    T c0r0; T c0r1; T c0r2;
-    T c1r0; T c1r1; T c1r2;
-    T c2r0; T c2r1; T c2r2;
 
     /**
      * @brief Default constructor - Initializes all components to zero
      */
-    constexpr Matrix3() = default;
+    constexpr Matrix3() : data{} {};
 
     /**
      * @brief Component-wise constructor - Explicitly initializes with 9
@@ -47,9 +48,53 @@ public:
         T c0r0, T c1r0, T c2r0,
         T c0r1, T c1r1, T c2r1,
         T c0r2, T c1r2, T c2r2
-    ) : c0r0(c0r0), c0r1(c0r1), c0r2(c0r2),
-        c1r0(c1r0), c1r1(c1r1), c1r2(c1r2),
-        c2r0(c2r0), c2r1(c2r1), c2r2(c2r2) {};
+    ) : data({c0r0, c0r1, c0r2, c1r0, c1r1, c1r2, c2r0, c2r1, c2r2}) {}
+
+    /**
+     * @brief Explicit array constructor - Initializes with an array of
+     *        9 components in column-major order
+     * 
+     * @param components Array of 9 components in column-major order
+     */
+    constexpr explicit Matrix3(const std::array<T, 9>& components) : data(components) {}
+
+    /**
+     * @brief Explicit array constructor - Initializes with an array of
+     *        9 components in column-major order by move
+     * 
+     * @param components Array of 9 components in column-major order
+     */
+    constexpr explicit Matrix3(std::array<T, 9>&& components) : data(std::move(components)) {}
+
+    /**
+     * @brief Accessor for the component at the specified column and row
+     * 
+     * @param column Column index
+     * @param row Row index
+     * 
+     * @return Reference to the component at the specified location
+     */
+    constexpr inline T& operator()(std::size_t column, std::size_t row) noexcept {
+        if (column >= 3 || row >= 3) [[unlikely]] {
+            gltkmath::Error::Fatal("Matrix3 indices out of bounds");
+        }
+        return data[column * 3 + row];
+    }
+
+    /**
+     * @brief Read-only accessor for the component at the specified column and row
+     * 
+     * @param column Column index
+     * @param row Row index
+     * 
+     * @return Reference to the component at the specified location
+     */
+    constexpr inline const T& operator()(std::size_t column, std::size_t row) const noexcept {
+        if (column >= 3 || row >= 3) [[unlikely]] {
+            gltkmath::Error::Fatal("Matrix3 indices out of bounds");
+        }
+        return data[column * 3 + row];
+    }
 
     /**
      * @brief Component-wise addition
@@ -63,15 +108,15 @@ public:
     constexpr inline Matrix3<std::common_type_t<T, U>> operator+(const Matrix3<U>& other) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
-            static_cast<ResultType>(c0r0) + static_cast<ResultType>(other.c0r0),
-            static_cast<ResultType>(c0r1) + static_cast<ResultType>(other.c0r1),
-            static_cast<ResultType>(c0r2) + static_cast<ResultType>(other.c0r2),
-            static_cast<ResultType>(c1r0) + static_cast<ResultType>(other.c1r0),
-            static_cast<ResultType>(c1r1) + static_cast<ResultType>(other.c1r1),
-            static_cast<ResultType>(c1r2) + static_cast<ResultType>(other.c1r2),
-            static_cast<ResultType>(c2r0) + static_cast<ResultType>(other.c2r0),
-            static_cast<ResultType>(c2r1) + static_cast<ResultType>(other.c2r1),
-            static_cast<ResultType>(c2r2) + static_cast<ResultType>(other.c2r2)
+            static_cast<ResultType>(data[0]) + static_cast<ResultType>(other.data[0]),
+            static_cast<ResultType>(data[1]) + static_cast<ResultType>(other.data[1]),
+            static_cast<ResultType>(data[2]) + static_cast<ResultType>(other.data[2]),
+            static_cast<ResultType>(data[3]) + static_cast<ResultType>(other.data[3]),
+            static_cast<ResultType>(data[4]) + static_cast<ResultType>(other.data[4]),
+            static_cast<ResultType>(data[5]) + static_cast<ResultType>(other.data[5]),
+            static_cast<ResultType>(data[6]) + static_cast<ResultType>(other.data[6]),
+            static_cast<ResultType>(data[7]) + static_cast<ResultType>(other.data[7]),
+            static_cast<ResultType>(data[8]) + static_cast<ResultType>(other.data[8])
         };
     }
 
@@ -87,15 +132,15 @@ public:
     constexpr inline Matrix3<std::common_type_t<T, U>> operator-(const Matrix3<U>& other) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
-            static_cast<ResultType>(c0r0) - static_cast<ResultType>(other.c0r0),
-            static_cast<ResultType>(c0r1) - static_cast<ResultType>(other.c0r1),
-            static_cast<ResultType>(c0r2) - static_cast<ResultType>(other.c0r2),
-            static_cast<ResultType>(c1r0) - static_cast<ResultType>(other.c1r0),
-            static_cast<ResultType>(c1r1) - static_cast<ResultType>(other.c1r1),
-            static_cast<ResultType>(c1r2) - static_cast<ResultType>(other.c1r2),
-            static_cast<ResultType>(c2r0) - static_cast<ResultType>(other.c2r0),
-            static_cast<ResultType>(c2r1) - static_cast<ResultType>(other.c2r1),
-            static_cast<ResultType>(c2r2) - static_cast<ResultType>(other.c2r2)
+            static_cast<ResultType>(data[0]) - static_cast<ResultType>(other.data[0]),
+            static_cast<ResultType>(data[1]) - static_cast<ResultType>(other.data[1]),
+            static_cast<ResultType>(data[2]) - static_cast<ResultType>(other.data[2]),
+            static_cast<ResultType>(data[3]) - static_cast<ResultType>(other.data[3]),
+            static_cast<ResultType>(data[4]) - static_cast<ResultType>(other.data[4]),
+            static_cast<ResultType>(data[5]) - static_cast<ResultType>(other.data[5]),
+            static_cast<ResultType>(data[6]) - static_cast<ResultType>(other.data[6]),
+            static_cast<ResultType>(data[7]) - static_cast<ResultType>(other.data[7]),
+            static_cast<ResultType>(data[8]) - static_cast<ResultType>(other.data[8])
         };
     }
 
@@ -106,9 +151,9 @@ public:
      */
     constexpr inline Matrix3 operator-() const requires std::is_signed_v<T> {
         return Matrix3{
-            -c0r0, -c0r1, -c0r2,
-            -c1r0, -c1r1, -c1r2,
-            -c2r0, -c2r1, -c2r2
+            -data[0], -data[1], -data[2],
+            -data[3], -data[4], -data[5],
+            -data[6], -data[7], -data[8]
         };
     }
 
@@ -124,15 +169,15 @@ public:
     constexpr inline Matrix3<std::common_type_t<T, U>> operator*(U scalar) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
-            static_cast<ResultType>(c0r0) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c0r1) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c0r2) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c1r0) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c1r1) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c1r2) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c2r0) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c2r1) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(c2r2) * static_cast<ResultType>(scalar)
+            static_cast<ResultType>(data[0]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[1]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[2]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[3]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[4]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[5]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[6]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[7]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(data[8]) * static_cast<ResultType>(scalar)
         };
     }
 
@@ -149,15 +194,15 @@ public:
     friend constexpr inline Matrix3<std::common_type_t<T, U>> operator*(U scalar, const Matrix3<T>& matrix) {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
-            static_cast<ResultType>(matrix.c0r0) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c0r1) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c0r2) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c1r0) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c1r1) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c1r2) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c2r0) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c2r1) * static_cast<ResultType>(scalar),
-            static_cast<ResultType>(matrix.c2r2) * static_cast<ResultType>(scalar)
+            static_cast<ResultType>(matrix.data[0]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[1]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[2]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[3]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[4]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[5]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[6]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[7]) * static_cast<ResultType>(scalar),
+            static_cast<ResultType>(matrix.data[8]) * static_cast<ResultType>(scalar)
         };
     }
 
@@ -173,17 +218,17 @@ public:
     constexpr inline Vector3<std::common_type_t<T, U>> operator*(Vector3<U> vector) const {
         using ResultType = std::common_type_t<T, U>;
         return Vector3<ResultType>(
-            (static_cast<ResultType>(c0r0) * static_cast<ResultType>(vector.x)) +
-            (static_cast<ResultType>(c1r0) * static_cast<ResultType>(vector.y)) +
-            (static_cast<ResultType>(c2r0) * static_cast<ResultType>(vector.z)),
+            (static_cast<ResultType>(data[0]) * static_cast<ResultType>(vector.x)) +
+            (static_cast<ResultType>(data[3]) * static_cast<ResultType>(vector.y)) +
+            (static_cast<ResultType>(data[6]) * static_cast<ResultType>(vector.z)),
 
-            (static_cast<ResultType>(c0r1) * static_cast<ResultType>(vector.x)) +
-            (static_cast<ResultType>(c1r1) * static_cast<ResultType>(vector.y)) +
-            (static_cast<ResultType>(c2r1) * static_cast<ResultType>(vector.z)),
+            (static_cast<ResultType>(data[1]) * static_cast<ResultType>(vector.x)) +
+            (static_cast<ResultType>(data[4]) * static_cast<ResultType>(vector.y)) +
+            (static_cast<ResultType>(data[7]) * static_cast<ResultType>(vector.z)),
 
-            (static_cast<ResultType>(c0r2) * static_cast<ResultType>(vector.x)) +
-            (static_cast<ResultType>(c1r2) * static_cast<ResultType>(vector.y)) +
-            (static_cast<ResultType>(c2r2) * static_cast<ResultType>(vector.z))
+            (static_cast<ResultType>(data[2]) * static_cast<ResultType>(vector.x)) +
+            (static_cast<ResultType>(data[5]) * static_cast<ResultType>(vector.y)) +
+            (static_cast<ResultType>(data[8]) * static_cast<ResultType>(vector.z))
         );
     }
 
@@ -199,41 +244,41 @@ public:
     constexpr inline Matrix3<std::common_type_t<T, U>> operator*(const Matrix3<U>& other) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
-            static_cast<ResultType>(c0r0) * static_cast<ResultType>(other.c0r0) +
-            static_cast<ResultType>(c1r0) * static_cast<ResultType>(other.c0r1) +
-            static_cast<ResultType>(c2r0) * static_cast<ResultType>(other.c0r2),
+            static_cast<ResultType>(data[0]) * static_cast<ResultType>(other.data[0]) +
+            static_cast<ResultType>(data[3]) * static_cast<ResultType>(other.data[1]) +
+            static_cast<ResultType>(data[6]) * static_cast<ResultType>(other.data[2]),
 
-            static_cast<ResultType>(c0r0) * static_cast<ResultType>(other.c1r0) +
-            static_cast<ResultType>(c1r0) * static_cast<ResultType>(other.c1r1) +
-            static_cast<ResultType>(c2r0) * static_cast<ResultType>(other.c1r2),
+            static_cast<ResultType>(data[0]) * static_cast<ResultType>(other.data[3]) +
+            static_cast<ResultType>(data[3]) * static_cast<ResultType>(other.data[4]) +
+            static_cast<ResultType>(data[6]) * static_cast<ResultType>(other.data[5]),
 
-            static_cast<ResultType>(c0r0) * static_cast<ResultType>(other.c2r0) +
-            static_cast<ResultType>(c1r0) * static_cast<ResultType>(other.c2r1) +
-            static_cast<ResultType>(c2r0) * static_cast<ResultType>(other.c2r2),
+            static_cast<ResultType>(data[0]) * static_cast<ResultType>(other.data[6]) +
+            static_cast<ResultType>(data[3]) * static_cast<ResultType>(other.data[7]) +
+            static_cast<ResultType>(data[6]) * static_cast<ResultType>(other.data[8]),
 
-            static_cast<ResultType>(c0r1) * static_cast<ResultType>(other.c0r0) +
-            static_cast<ResultType>(c1r1) * static_cast<ResultType>(other.c0r1) +
-            static_cast<ResultType>(c2r1) * static_cast<ResultType>(other.c0r2),
+            static_cast<ResultType>(data[1]) * static_cast<ResultType>(other.data[0]) +
+            static_cast<ResultType>(data[4]) * static_cast<ResultType>(other.data[1]) +
+            static_cast<ResultType>(data[7]) * static_cast<ResultType>(other.data[2]),
 
-            static_cast<ResultType>(c0r1) * static_cast<ResultType>(other.c1r0) +
-            static_cast<ResultType>(c1r1) * static_cast<ResultType>(other.c1r1) +
-            static_cast<ResultType>(c2r1) * static_cast<ResultType>(other.c1r2),
+            static_cast<ResultType>(data[1]) * static_cast<ResultType>(other.data[3]) +
+            static_cast<ResultType>(data[4]) * static_cast<ResultType>(other.data[4]) +
+            static_cast<ResultType>(data[7]) * static_cast<ResultType>(other.data[5]),
 
-            static_cast<ResultType>(c0r1) * static_cast<ResultType>(other.c2r0) +
-            static_cast<ResultType>(c1r1) * static_cast<ResultType>(other.c2r1) +
-            static_cast<ResultType>(c2r1) * static_cast<ResultType>(other.c2r2),
+            static_cast<ResultType>(data[1]) * static_cast<ResultType>(other.data[6]) +
+            static_cast<ResultType>(data[4]) * static_cast<ResultType>(other.data[7]) +
+            static_cast<ResultType>(data[7]) * static_cast<ResultType>(other.data[8]),
 
-            static_cast<ResultType>(c0r2) * static_cast<ResultType>(other.c0r0) +
-            static_cast<ResultType>(c1r2) * static_cast<ResultType>(other.c0r1) +
-            static_cast<ResultType>(c2r2) * static_cast<ResultType>(other.c0r2),
+            static_cast<ResultType>(data[2]) * static_cast<ResultType>(other.data[0]) +
+            static_cast<ResultType>(data[5]) * static_cast<ResultType>(other.data[1]) +
+            static_cast<ResultType>(data[8]) * static_cast<ResultType>(other.data[2]),
 
-            static_cast<ResultType>(c0r2) * static_cast<ResultType>(other.c1r0) +
-            static_cast<ResultType>(c1r2) * static_cast<ResultType>(other.c1r1) +
-            static_cast<ResultType>(c2r2) * static_cast<ResultType>(other.c1r2),
+            static_cast<ResultType>(data[2]) * static_cast<ResultType>(other.data[3]) +
+            static_cast<ResultType>(data[5]) * static_cast<ResultType>(other.data[4]) +
+            static_cast<ResultType>(data[8]) * static_cast<ResultType>(other.data[5]),
 
-            static_cast<ResultType>(c0r2) * static_cast<ResultType>(other.c2r0) +
-            static_cast<ResultType>(c1r2) * static_cast<ResultType>(other.c2r1) +
-            static_cast<ResultType>(c2r2) * static_cast<ResultType>(other.c2r2)
+            static_cast<ResultType>(data[2]) * static_cast<ResultType>(other.data[6]) +
+            static_cast<ResultType>(data[5]) * static_cast<ResultType>(other.data[7]) +
+            static_cast<ResultType>(data[8]) * static_cast<ResultType>(other.data[8])
         };
     }
 
@@ -247,15 +292,15 @@ public:
     template<typename U>
         requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
     constexpr inline Matrix3& operator+=(const Matrix3<U>& other) {
-        c0r0 += static_cast<T>(other.c0r0);
-        c0r1 += static_cast<T>(other.c0r1);
-        c0r2 += static_cast<T>(other.c0r2);
-        c1r0 += static_cast<T>(other.c1r0);
-        c1r1 += static_cast<T>(other.c1r1);
-        c1r2 += static_cast<T>(other.c1r2);
-        c2r0 += static_cast<T>(other.c2r0);
-        c2r1 += static_cast<T>(other.c2r1);
-        c2r2 += static_cast<T>(other.c2r2);
+        data[0] += static_cast<T>(other.data[0]);
+        data[1] += static_cast<T>(other.data[1]);
+        data[2] += static_cast<T>(other.data[2]);
+        data[3] += static_cast<T>(other.data[3]);
+        data[4] += static_cast<T>(other.data[4]);
+        data[5] += static_cast<T>(other.data[5]);
+        data[6] += static_cast<T>(other.data[6]);
+        data[7] += static_cast<T>(other.data[7]);
+        data[8] += static_cast<T>(other.data[8]);
 
         return *this;
     }
@@ -270,15 +315,15 @@ public:
     template<typename U>
         requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
     constexpr inline Matrix3& operator-=(const Matrix3<U>& other) {
-        c0r0 -= static_cast<T>(other.c0r0);
-        c0r1 -= static_cast<T>(other.c0r1);
-        c0r2 -= static_cast<T>(other.c0r2);
-        c1r0 -= static_cast<T>(other.c1r0);
-        c1r1 -= static_cast<T>(other.c1r1);
-        c1r2 -= static_cast<T>(other.c1r2);
-        c2r0 -= static_cast<T>(other.c2r0);
-        c2r1 -= static_cast<T>(other.c2r1);
-        c2r2 -= static_cast<T>(other.c2r2);
+        data[0] -= static_cast<T>(other.data[0]);
+        data[1] -= static_cast<T>(other.data[1]);
+        data[2] -= static_cast<T>(other.data[2]);
+        data[3] -= static_cast<T>(other.data[3]);
+        data[4] -= static_cast<T>(other.data[4]);
+        data[5] -= static_cast<T>(other.data[5]);
+        data[6] -= static_cast<T>(other.data[6]);
+        data[7] -= static_cast<T>(other.data[7]);
+        data[8] -= static_cast<T>(other.data[8]);
 
         return *this;
     }
@@ -293,15 +338,15 @@ public:
     template<typename U>
         requires (std::is_arithmetic_v<U> && lossless_convertible_to<U, T>)
     constexpr inline Matrix3& operator*=(const U& scalar) {
-        c0r0 *= static_cast<T>(scalar);
-        c0r1 *= static_cast<T>(scalar);
-        c0r2 *= static_cast<T>(scalar);
-        c1r0 *= static_cast<T>(scalar);
-        c1r1 *= static_cast<T>(scalar);
-        c1r2 *= static_cast<T>(scalar);
-        c2r0 *= static_cast<T>(scalar);
-        c2r1 *= static_cast<T>(scalar);
-        c2r2 *= static_cast<T>(scalar);
+        data[0] *= static_cast<T>(scalar);
+        data[1] *= static_cast<T>(scalar);
+        data[2] *= static_cast<T>(scalar);
+        data[3] *= static_cast<T>(scalar);
+        data[4] *= static_cast<T>(scalar);
+        data[5] *= static_cast<T>(scalar);
+        data[6] *= static_cast<T>(scalar);
+        data[7] *= static_cast<T>(scalar);
+        data[8] *= static_cast<T>(scalar);
 
         return *this;
     }
@@ -330,9 +375,9 @@ public:
         requires std::is_arithmetic_v<NewType>
     [[nodiscard]] constexpr inline Matrix3<NewType> cast() const {
         return Matrix3<NewType>{
-            static_cast<NewType>(c0r0), static_cast<NewType>(c1r0), static_cast<NewType>(c2r0),
-            static_cast<NewType>(c0r1), static_cast<NewType>(c1r1), static_cast<NewType>(c2r1),
-            static_cast<NewType>(c0r2), static_cast<NewType>(c1r2), static_cast<NewType>(c2r2)
+            static_cast<NewType>(data[0]), static_cast<NewType>(data[3]), static_cast<NewType>(data[6]),
+            static_cast<NewType>(data[1]), static_cast<NewType>(data[4]), static_cast<NewType>(data[7]),
+            static_cast<NewType>(data[2]), static_cast<NewType>(data[5]), static_cast<NewType>(data[8])
         };
     }
 
@@ -340,9 +385,9 @@ public:
      * @brief The determinant of the matrix
      */
     [[nodiscard]] constexpr inline T determinant() const {
-        return (c0r0 * (c1r1 * c2r2 - c1r2 * c2r1)) -
-               (c1r0 * (c0r1 * c2r2 - c0r2 * c2r1)) +
-               (c2r0 * (c0r1 * c1r2 - c0r2 * c1r1));
+        return (data[0] * (data[4] * data[8] - data[5] * data[7])) -
+               (data[3] * (data[1] * data[8] - data[2] * data[7])) +
+               (data[6] * (data[1] * data[5] - data[2] * data[4]));
     }
 
     /**
@@ -350,9 +395,9 @@ public:
      */
     [[nodiscard]] constexpr inline Matrix3 transpose() const {
         return Matrix3{
-            c0r0, c0r1, c0r2,
-            c1r0, c1r1, c1r2,
-            c2r0, c2r1, c2r2
+            data[0], data[1], data[2],
+            data[3], data[4], data[5],
+            data[6], data[7], data[8]
         };
     }
 };
@@ -364,6 +409,9 @@ Matrix3(
     T, T, T,
     T, T, T
 ) -> Matrix3<T>;
+
+template<typename T>
+Matrix3(const std::array<T, 9>&) -> Matrix3<T>;
 
 } // namespace gltkmath
 

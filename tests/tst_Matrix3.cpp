@@ -10,26 +10,26 @@
 
 TEST(Matrix3_Constructors, Default) {
     gltkmath::Matrix3<float> matrix{};
-    EXPECT_FLOAT_EQ(matrix.c0r0, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r1, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r2, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r0, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r1, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r2, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r0, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r1, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r2, 0.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 0), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), 0.0f);
 
     gltkmath::Matrix3<std::size_t> sizeMatrix{};
-    EXPECT_EQ(sizeMatrix.c0r0, 0);
-    EXPECT_EQ(sizeMatrix.c0r1, 0);
-    EXPECT_EQ(sizeMatrix.c0r2, 0);
-    EXPECT_EQ(sizeMatrix.c1r0, 0);
-    EXPECT_EQ(sizeMatrix.c1r1, 0);
-    EXPECT_EQ(sizeMatrix.c1r2, 0);
-    EXPECT_EQ(sizeMatrix.c2r0, 0);
-    EXPECT_EQ(sizeMatrix.c2r1, 0);
-    EXPECT_EQ(sizeMatrix.c2r2, 0);
+    EXPECT_EQ(sizeMatrix(0, 0), 0);
+    EXPECT_EQ(sizeMatrix(0, 1), 0);
+    EXPECT_EQ(sizeMatrix(0, 2), 0);
+    EXPECT_EQ(sizeMatrix(1, 0), 0);
+    EXPECT_EQ(sizeMatrix(1, 1), 0);
+    EXPECT_EQ(sizeMatrix(1, 2), 0);
+    EXPECT_EQ(sizeMatrix(2, 0), 0);
+    EXPECT_EQ(sizeMatrix(2, 1), 0);
+    EXPECT_EQ(sizeMatrix(2, 2), 0);
 }
 
 TEST(Matrix3_Constructors, ComponentWise) {
@@ -38,15 +38,15 @@ TEST(Matrix3_Constructors, ComponentWise) {
         4.0f, 5.0f, 6.0f,
         7.0f, 8.0f, 9.0f
     };
-    EXPECT_FLOAT_EQ(matrix.c0r0, 1.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r1, 4.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r2, 7.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r0, 2.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r1, 5.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r2, 8.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r0, 3.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r1, 6.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r2, 9.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 0), 1.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), 4.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), 7.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 2.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 5.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 8.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), 3.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), 6.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), 9.0f);
 }
 
 TEST(Matrix3_Operators, Addition) {
@@ -56,15 +56,15 @@ TEST(Matrix3_Operators, Addition) {
         7.0f, 8.0f, 9.0f
     };
     gltkmath::Matrix3 result = matrix + matrix;
-    EXPECT_FLOAT_EQ(result.c0r0, 2.0f);
-    EXPECT_FLOAT_EQ(result.c0r1, 4.0f);
-    EXPECT_FLOAT_EQ(result.c0r2, 6.0f);
-    EXPECT_FLOAT_EQ(result.c1r0, 8.0f);
-    EXPECT_FLOAT_EQ(result.c1r1, 10.0f);
-    EXPECT_FLOAT_EQ(result.c1r2, 12.0f);
-    EXPECT_FLOAT_EQ(result.c2r0, 14.0f);
-    EXPECT_FLOAT_EQ(result.c2r1, 16.0f);
-    EXPECT_FLOAT_EQ(result.c2r2, 18.0f);
+    EXPECT_FLOAT_EQ(result(0, 0), 2.0f);
+    EXPECT_FLOAT_EQ(result(0, 1), 4.0f);
+    EXPECT_FLOAT_EQ(result(0, 2), 6.0f);
+    EXPECT_FLOAT_EQ(result(1, 0), 8.0f);
+    EXPECT_FLOAT_EQ(result(1, 1), 10.0f);
+    EXPECT_FLOAT_EQ(result(1, 2), 12.0f);
+    EXPECT_FLOAT_EQ(result(2, 0), 14.0f);
+    EXPECT_FLOAT_EQ(result(2, 1), 16.0f);
+    EXPECT_FLOAT_EQ(result(2, 2), 18.0f);
 }
 
 TEST(Matrix3_Operators, Subtraction) {
@@ -74,15 +74,15 @@ TEST(Matrix3_Operators, Subtraction) {
         7.0f, 8.0f, 9.0f
     };
     gltkmath::Matrix3 result = matrix - matrix;
-    EXPECT_FLOAT_EQ(result.c0r0, 0.0f);
-    EXPECT_FLOAT_EQ(result.c0r1, 0.0f);
-    EXPECT_FLOAT_EQ(result.c0r2, 0.0f);
-    EXPECT_FLOAT_EQ(result.c1r0, 0.0f);
-    EXPECT_FLOAT_EQ(result.c1r1, 0.0f);
-    EXPECT_FLOAT_EQ(result.c1r2, 0.0f);
-    EXPECT_FLOAT_EQ(result.c2r0, 0.0f);
-    EXPECT_FLOAT_EQ(result.c2r1, 0.0f);
-    EXPECT_FLOAT_EQ(result.c2r2, 0.0f);
+    EXPECT_FLOAT_EQ(result(0, 0), 0.0f);
+    EXPECT_FLOAT_EQ(result(0, 1), 0.0f);
+    EXPECT_FLOAT_EQ(result(0, 2), 0.0f);
+    EXPECT_FLOAT_EQ(result(1, 0), 0.0f);
+    EXPECT_FLOAT_EQ(result(1, 1), 0.0f);
+    EXPECT_FLOAT_EQ(result(1, 2), 0.0f);
+    EXPECT_FLOAT_EQ(result(2, 0), 0.0f);
+    EXPECT_FLOAT_EQ(result(2, 1), 0.0f);
+    EXPECT_FLOAT_EQ(result(2, 2), 0.0f);
 }
 
 TEST(Matrix3_Operators, UnarySubtraction) {
@@ -92,15 +92,15 @@ TEST(Matrix3_Operators, UnarySubtraction) {
         7.0f, -8.0f, 9.0f
     };
     gltkmath::Matrix3 result = -matrix;
-    EXPECT_FLOAT_EQ(result.c0r0, -1.0f);
-    EXPECT_FLOAT_EQ(result.c0r1, 2.0f);
-    EXPECT_FLOAT_EQ(result.c0r2, -3.0f);
-    EXPECT_FLOAT_EQ(result.c1r0, 4.0f);
-    EXPECT_FLOAT_EQ(result.c1r1, -5.0f);
-    EXPECT_FLOAT_EQ(result.c1r2, 6.0f);
-    EXPECT_FLOAT_EQ(result.c2r0, -7.0f);
-    EXPECT_FLOAT_EQ(result.c2r1, 8.0f);
-    EXPECT_FLOAT_EQ(result.c2r2, -9.0f);
+    EXPECT_FLOAT_EQ(result(0, 0), -1.0f);
+    EXPECT_FLOAT_EQ(result(0, 1), 2.0f);
+    EXPECT_FLOAT_EQ(result(0, 2), -3.0f);
+    EXPECT_FLOAT_EQ(result(1, 0), 4.0f);
+    EXPECT_FLOAT_EQ(result(1, 1), -5.0f);
+    EXPECT_FLOAT_EQ(result(1, 2), 6.0f);
+    EXPECT_FLOAT_EQ(result(2, 0), -7.0f);
+    EXPECT_FLOAT_EQ(result(2, 1), 8.0f);
+    EXPECT_FLOAT_EQ(result(2, 2), -9.0f);
 }
 
 TEST(Matrix3_Operators, ScalarMultiplication) {
@@ -110,15 +110,15 @@ TEST(Matrix3_Operators, ScalarMultiplication) {
         7.0f, 8.0f, 9.0f
     };
     gltkmath::Matrix3 result = matrix * 2.0f;
-    EXPECT_FLOAT_EQ(result.c0r0, 2.0f);
-    EXPECT_FLOAT_EQ(result.c0r1, 4.0f);
-    EXPECT_FLOAT_EQ(result.c0r2, 6.0f);
-    EXPECT_FLOAT_EQ(result.c1r0, 8.0f);
-    EXPECT_FLOAT_EQ(result.c1r1, 10.0f);
-    EXPECT_FLOAT_EQ(result.c1r2, 12.0f);
-    EXPECT_FLOAT_EQ(result.c2r0, 14.0f);
-    EXPECT_FLOAT_EQ(result.c2r1, 16.0f);
-    EXPECT_FLOAT_EQ(result.c2r2, 18.0f);
+    EXPECT_FLOAT_EQ(result(0, 0), 2.0f);
+    EXPECT_FLOAT_EQ(result(0, 1), 4.0f);
+    EXPECT_FLOAT_EQ(result(0, 2), 6.0f);
+    EXPECT_FLOAT_EQ(result(1, 0), 8.0f);
+    EXPECT_FLOAT_EQ(result(1, 1), 10.0f);
+    EXPECT_FLOAT_EQ(result(1, 2), 12.0f);
+    EXPECT_FLOAT_EQ(result(2, 0), 14.0f);
+    EXPECT_FLOAT_EQ(result(2, 1), 16.0f);
+    EXPECT_FLOAT_EQ(result(2, 2), 18.0f);
 }
 
 TEST(Matrix3_Operators, ScalarMultiplicationLeft) {
@@ -128,15 +128,15 @@ TEST(Matrix3_Operators, ScalarMultiplicationLeft) {
         7.0f, 8.0f, 9.0f
     };
     gltkmath::Matrix3 result = 2.0f * matrix;
-    EXPECT_FLOAT_EQ(result.c0r0, 2.0f);
-    EXPECT_FLOAT_EQ(result.c0r1, 4.0f);
-    EXPECT_FLOAT_EQ(result.c0r2, 6.0f);
-    EXPECT_FLOAT_EQ(result.c1r0, 8.0f);
-    EXPECT_FLOAT_EQ(result.c1r1, 10.0f);
-    EXPECT_FLOAT_EQ(result.c1r2, 12.0f);
-    EXPECT_FLOAT_EQ(result.c2r0, 14.0f);
-    EXPECT_FLOAT_EQ(result.c2r1, 16.0f);
-    EXPECT_FLOAT_EQ(result.c2r2, 18.0f);
+    EXPECT_FLOAT_EQ(result(0, 0), 2.0f);
+    EXPECT_FLOAT_EQ(result(0, 1), 4.0f);
+    EXPECT_FLOAT_EQ(result(0, 2), 6.0f);
+    EXPECT_FLOAT_EQ(result(1, 0), 8.0f);
+    EXPECT_FLOAT_EQ(result(1, 1), 10.0f);
+    EXPECT_FLOAT_EQ(result(1, 2), 12.0f);
+    EXPECT_FLOAT_EQ(result(2, 0), 14.0f);
+    EXPECT_FLOAT_EQ(result(2, 1), 16.0f);
+    EXPECT_FLOAT_EQ(result(2, 2), 18.0f);
 }
 
 TEST(Matrix3_Operators, VectorMultiplication) {
@@ -172,30 +172,30 @@ TEST(Matrix3_Operators, MatrixMultiplication) {
         | 4  5  6 | * |  2  -5   8 | = | -12  27  -42 |
         | 7  8  9 |   | -3   6  -9 |   | -18  42  -66 |
     */
-    EXPECT_FLOAT_EQ(resultAB.c0r0, -6.0f);
-    EXPECT_FLOAT_EQ(resultAB.c0r1, -12.0f);
-    EXPECT_FLOAT_EQ(resultAB.c0r2, -18.0f);
-    EXPECT_FLOAT_EQ(resultAB.c1r0,  12.0f);
-    EXPECT_FLOAT_EQ(resultAB.c1r1,  27.0f);
-    EXPECT_FLOAT_EQ(resultAB.c1r2,  42.0f);
-    EXPECT_FLOAT_EQ(resultAB.c2r0, -18.0f);
-    EXPECT_FLOAT_EQ(resultAB.c2r1, -42.0f);
-    EXPECT_FLOAT_EQ(resultAB.c2r2, -66.0f);
+    EXPECT_FLOAT_EQ(resultAB(0, 0), -6.0f);
+    EXPECT_FLOAT_EQ(resultAB(0, 1), -12.0f);
+    EXPECT_FLOAT_EQ(resultAB(0, 2), -18.0f);
+    EXPECT_FLOAT_EQ(resultAB(1, 0),  12.0f);
+    EXPECT_FLOAT_EQ(resultAB(1, 1),  27.0f);
+    EXPECT_FLOAT_EQ(resultAB(1, 2),  42.0f);
+    EXPECT_FLOAT_EQ(resultAB(2, 0), -18.0f);
+    EXPECT_FLOAT_EQ(resultAB(2, 1), -42.0f);
+    EXPECT_FLOAT_EQ(resultAB(2, 2), -66.0f);
 
     /*
         | -1   4  -7 |   | 1  2  3 |   | -34  -38  -42 |
         |  2  -5   8 | * | 4  5  6 | = |  38   43   48 |
         | -3   6  -9 |   | 7  8  9 |   | -42  -48  -54 |
     */
-    EXPECT_FLOAT_EQ(resultBA.c0r0, -34.0f);
-    EXPECT_FLOAT_EQ(resultBA.c0r1,  38.0f);
-    EXPECT_FLOAT_EQ(resultBA.c0r2, -42.0f);
-    EXPECT_FLOAT_EQ(resultBA.c1r0, -38.0f);
-    EXPECT_FLOAT_EQ(resultBA.c1r1,  43.0f);
-    EXPECT_FLOAT_EQ(resultBA.c1r2, -48.0f);
-    EXPECT_FLOAT_EQ(resultBA.c2r0, -42.0f);
-    EXPECT_FLOAT_EQ(resultBA.c2r1,  48.0f);
-    EXPECT_FLOAT_EQ(resultBA.c2r2, -54.0f);
+    EXPECT_FLOAT_EQ(resultBA(0, 0), -34.0f);
+    EXPECT_FLOAT_EQ(resultBA(0, 1),  38.0f);
+    EXPECT_FLOAT_EQ(resultBA(0, 2), -42.0f);
+    EXPECT_FLOAT_EQ(resultBA(1, 0), -38.0f);
+    EXPECT_FLOAT_EQ(resultBA(1, 1),  43.0f);
+    EXPECT_FLOAT_EQ(resultBA(1, 2), -48.0f);
+    EXPECT_FLOAT_EQ(resultBA(2, 0), -42.0f);
+    EXPECT_FLOAT_EQ(resultBA(2, 1),  48.0f);
+    EXPECT_FLOAT_EQ(resultBA(2, 2), -54.0f);
 }
 
 TEST(Matrix3_Operators, AdditionAssignment) {
@@ -210,15 +210,15 @@ TEST(Matrix3_Operators, AdditionAssignment) {
         7.0f, 8.0f, 9.0f
     };
     matrix += other;
-    EXPECT_FLOAT_EQ(matrix.c0r0, 2.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r1, 8.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r2, 14.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r0, 4.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r1, 10.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r2, 16.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r0, 6.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r1, 12.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r2, 18.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 0), 2.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), 8.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), 14.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 4.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 10.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 16.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), 6.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), 12.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), 18.0f);
 }
 
 TEST(Matrix3_Operators, SubtractionAssignment) {
@@ -233,15 +233,15 @@ TEST(Matrix3_Operators, SubtractionAssignment) {
         7.0f, 8.0f, 9.0f
     };
     matrix -= other;
-    EXPECT_FLOAT_EQ(matrix.c0r0, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r1, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r2, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r0, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r1, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r2, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r0, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r1, 0.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r2, 0.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 0), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), 0.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), 0.0f);
 }
 
 TEST(Matrix3_Operators, ScalarMultiplicationAssignment) {
@@ -251,15 +251,15 @@ TEST(Matrix3_Operators, ScalarMultiplicationAssignment) {
         7.0f, 8.0f, 9.0f
     };
     matrix *= 2.0f;
-    EXPECT_FLOAT_EQ(matrix.c0r0, 2.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r1, 8.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r2, 14.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r0, 4.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r1, 10.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r2, 16.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r0, 6.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r1, 12.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r2, 18.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 0), 2.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), 8.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), 14.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 4.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 10.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 16.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), 6.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), 12.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), 18.0f);
 }
 
 TEST(Matrix3_Operators, MatrixMultiplicationAssignment) {
@@ -280,15 +280,15 @@ TEST(Matrix3_Operators, MatrixMultiplicationAssignment) {
         | 4  5  6 | * |  2  -5   8 | = | -12  27  -42 |
         | 7  8  9 |   | -3   6  -9 |   | -18  42  -66 |
     */
-    EXPECT_FLOAT_EQ(matrix.c0r0, -6.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r1, -12.0f);
-    EXPECT_FLOAT_EQ(matrix.c0r2, -18.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r0, 12.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r1, 27.0f);
-    EXPECT_FLOAT_EQ(matrix.c1r2, 42.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r0, -18.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r1, -42.0f);
-    EXPECT_FLOAT_EQ(matrix.c2r2, -66.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 0), -6.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), -12.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), -18.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 12.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 27.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 42.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), -18.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), -42.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), -66.0f);
 }
 
 TEST(Matrix3, cast) {
@@ -330,13 +330,13 @@ TEST(Matrix3, transpose) {
         7.0f, 8.0f, 9.0f
     };
     gltkmath::Matrix3 transposed = matrix.transpose();
-    EXPECT_FLOAT_EQ(transposed.c0r0, 1.0f);
-    EXPECT_FLOAT_EQ(transposed.c0r1, 2.0f);
-    EXPECT_FLOAT_EQ(transposed.c0r2, 3.0f);
-    EXPECT_FLOAT_EQ(transposed.c1r0, 4.0f);
-    EXPECT_FLOAT_EQ(transposed.c1r1, 5.0f);
-    EXPECT_FLOAT_EQ(transposed.c1r2, 6.0f);
-    EXPECT_FLOAT_EQ(transposed.c2r0, 7.0f);
-    EXPECT_FLOAT_EQ(transposed.c2r1, 8.0f);
-    EXPECT_FLOAT_EQ(transposed.c2r2, 9.0f);
+    EXPECT_FLOAT_EQ(transposed(0, 0), 1.0f);
+    EXPECT_FLOAT_EQ(transposed(0, 1), 2.0f);
+    EXPECT_FLOAT_EQ(transposed(0, 2), 3.0f);
+    EXPECT_FLOAT_EQ(transposed(1, 0), 4.0f);
+    EXPECT_FLOAT_EQ(transposed(1, 1), 5.0f);
+    EXPECT_FLOAT_EQ(transposed(1, 2), 6.0f);
+    EXPECT_FLOAT_EQ(transposed(2, 0), 7.0f);
+    EXPECT_FLOAT_EQ(transposed(2, 1), 8.0f);
+    EXPECT_FLOAT_EQ(transposed(2, 2), 9.0f);
 }
