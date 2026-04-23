@@ -412,3 +412,16 @@ TEST(Matrix3, inverse) {
     EXPECT_EQ(inverse(2, 1), expected(2, 1));
     EXPECT_EQ(inverse(2, 2), expected(2, 2));
 }
+
+TEST(Matrix3, Identity) {
+    gltkmath::Matrix3 identity = gltkmath::Matrix3<float>::Identity();
+    EXPECT_FLOAT_EQ(identity(0, 0), 1.0f);
+    EXPECT_FLOAT_EQ(identity(0, 1), 0.0f);
+    EXPECT_FLOAT_EQ(identity(0, 2), 0.0f);
+    EXPECT_FLOAT_EQ(identity(1, 0), 0.0f);
+    EXPECT_FLOAT_EQ(identity(1, 1), 1.0f);
+    EXPECT_FLOAT_EQ(identity(1, 2), 0.0f);
+    EXPECT_FLOAT_EQ(identity(2, 0), 0.0f);
+    EXPECT_FLOAT_EQ(identity(2, 1), 0.0f);
+    EXPECT_FLOAT_EQ(identity(2, 2), 1.0f);
+}

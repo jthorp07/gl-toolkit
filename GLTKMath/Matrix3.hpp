@@ -67,6 +67,17 @@ public:
     constexpr explicit Matrix3(std::array<T, 9>&& components) : data(std::move(components)) {}
 
     /**
+     * @brief Initializes an identity matrix
+     */
+    constexpr static inline Matrix3 Identity() {
+        return Matrix3{
+            static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),
+            static_cast<T>(0), static_cast<T>(1), static_cast<T>(0),
+            static_cast<T>(0), static_cast<T>(0), static_cast<T>(1)
+        };
+    }
+
+    /**
      * @brief Accessor for the component at the specified column and row
      * 
      * @param column Column index
