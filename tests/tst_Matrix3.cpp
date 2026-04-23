@@ -8,6 +8,10 @@
 #include "Matrix3.hpp"
 #include "Vector3.hpp"
 
+#include <array>
+#include <tuple>
+#include <utility>
+
 TEST(Matrix3_Constructors, Default) {
     gltkmath::Matrix3<float> matrix{};
     EXPECT_FLOAT_EQ(matrix(0, 0), 0.0f);
@@ -392,25 +396,25 @@ TEST(Matrix3, cofactor) {
 
 TEST(Matrix3, inverse) {
     gltkmath::Matrix3 matrix{
-        1, 2, 2,
-        2, 3, 2,
-        1, 2, 1
+        1.0f, 2.0f, 2.0f,
+        2.0f, 3.0f, 2.0f,
+        1.0f, 2.0f, 1.0f
     };
     gltkmath::Matrix3 inverse = matrix.inverse();
     gltkmath::Matrix3 expected{
-        -1,  2, -2,
-         0, -1,  2,
-         1,  0, -1
+        -1.0f,  2.0f, -2.0f,
+         0.0f, -1.0f,  2.0f,
+         1.0f,  0.0f, -1.0f
     };
-    EXPECT_EQ(inverse(0, 0), expected(0, 0));
-    EXPECT_EQ(inverse(0, 1), expected(0, 1));
-    EXPECT_EQ(inverse(0, 2), expected(0, 2));
-    EXPECT_EQ(inverse(1, 0), expected(1, 0));
-    EXPECT_EQ(inverse(1, 1), expected(1, 1));
-    EXPECT_EQ(inverse(1, 2), expected(1, 2));
-    EXPECT_EQ(inverse(2, 0), expected(2, 0));
-    EXPECT_EQ(inverse(2, 1), expected(2, 1));
-    EXPECT_EQ(inverse(2, 2), expected(2, 2));
+    EXPECT_FLOAT_EQ(inverse(0, 0), expected(0, 0));
+    EXPECT_FLOAT_EQ(inverse(0, 1), expected(0, 1));
+    EXPECT_FLOAT_EQ(inverse(0, 2), expected(0, 2));
+    EXPECT_FLOAT_EQ(inverse(1, 0), expected(1, 0));
+    EXPECT_FLOAT_EQ(inverse(1, 1), expected(1, 1));
+    EXPECT_FLOAT_EQ(inverse(1, 2), expected(1, 2));
+    EXPECT_FLOAT_EQ(inverse(2, 0), expected(2, 0));
+    EXPECT_FLOAT_EQ(inverse(2, 1), expected(2, 1));
+    EXPECT_FLOAT_EQ(inverse(2, 2), expected(2, 2));
 }
 
 TEST(Matrix3, Identity) {
