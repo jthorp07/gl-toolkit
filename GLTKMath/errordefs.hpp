@@ -16,7 +16,7 @@ namespace gltkmath {
 class Error {
 public:
 
-    // Not constructible, copyable, moveable, or assignable
+    // Not constructible, copyable, movable, or assignable
     Error() = delete;
     ~Error() = delete;
     Error(const Error&) = delete;
