@@ -400,6 +400,53 @@ public:
             data[6], data[7], data[8]
         };
     }
+
+    /**
+     * @brief Cofactor of the matrix at the given row and column
+     * 
+     * @param row Row of the cofactor (0, 1, or 2)
+     * @param column Column of the cofactor (0, 1, or 2)
+     */
+    [[nodiscard]] constexpr inline T cofactor(std::size_t row, std::size_t column) const requires std::is_signed_v<T> {
+
+        T sign = static_cast<T>(1);
+        if ((row + column) % 2 != 0) {
+            sign = static_cast<T>(-1);
+        }
+
+        std::pair<T, T> rowMinors;
+        switch (row) {
+            case 0:
+                rowMinors = { static_cast<T>(1), static_cast<T>(2) };
+                break;
+            case 1:
+                rowMinors = { static_cast<T>(0), static_cast<T>(2) };
+                break;
+            case 2:
+                rowMinors = { static_cast<T>(0), static_cast<T>(1) };
+                break;
+            default:
+                throw std::out_of_range("Row and column must be 0, 1, or 2");
+        }
+
+        std::pair<T, T> columnMinors;
+        switch (column) {
+            case 0:
+                columnMinors = { static_cast<T>(1), static_cast<T>(2) };
+                break;
+            case 1:
+                columnMinors = { static_cast<T>(0), static_cast<T>(2) };
+                break;
+            case 2:
+                columnMinors = { static_cast<T>(0), static_cast<T>(1) };
+                break;
+            default:
+                throw std::out_of_range("Row and column must be 0, 1, or 2");
+        }
+
+        return sign * (data[columnMinors.first * 3 + rowMinors.first] * data[columnMinors.second * 3 + rowMinors.second] -
+                       data[columnMinors.first * 3 + rowMinors.second] * data[columnMinors.second * 3 + rowMinors.first]);
+    }
 };
 
 // Type deduction

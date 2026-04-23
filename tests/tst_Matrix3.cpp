@@ -340,3 +340,18 @@ TEST(Matrix3, transpose) {
     EXPECT_FLOAT_EQ(transposed(2, 1), 8.0f);
     EXPECT_FLOAT_EQ(transposed(2, 2), 9.0f);
 }
+
+TEST(Matrix3, cofactor) {
+    gltkmath::Matrix3 matrix{
+         3, 4, -7,
+         3, 3,  10,
+        -1, 4, -5
+    };
+    EXPECT_EQ(matrix.cofactor(0, 0), -55);
+    EXPECT_EQ(matrix.cofactor(0, 1), 5);
+    EXPECT_EQ(matrix.cofactor(0, 2), 15);
+    EXPECT_EQ(matrix.cofactor(1, 1), -22);
+    EXPECT_EQ(matrix.cofactor(1, 0), -8);
+    EXPECT_EQ(matrix.cofactor(1, 2), -16);
+    EXPECT_EQ(matrix.cofactor(2, 2), -3);
+}
