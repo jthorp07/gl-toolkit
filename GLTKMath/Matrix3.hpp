@@ -384,10 +384,10 @@ public:
     /**
      * @brief The determinant of the matrix
      */
-    [[nodiscard]] constexpr inline T determinant() const {
-        return (data[0] * (data[4] * data[8] - data[5] * data[7])) -
-               (data[3] * (data[1] * data[8] - data[2] * data[7])) +
-               (data[6] * (data[1] * data[5] - data[2] * data[4]));
+    [[nodiscard]] constexpr inline T determinant() const requires std::is_signed_v<T> {
+        return (data[index(0, 0)] * cofactor(0, 0)) +
+               (data[index(1, 0)] * cofactor(1, 0)) +
+               (data[index(2, 0)] * cofactor(2, 0));
     }
 
     /**
@@ -446,6 +446,43 @@ public:
 
         return sign * (data[columnMinors.first * 3 + rowMinors.first] * data[columnMinors.second * 3 + rowMinors.second] -
                        data[columnMinors.first * 3 + rowMinors.second] * data[columnMinors.second * 3 + rowMinors.first]);
+    }
+
+    [[nodiscard]] constexpr inline Matrix3 inverse() const requires std::is_signed_v<T> {
+
+        const T det = determinant();
+        if (det == static_cast<T>(0)) [[unlikely]] {
+            throw std::runtime_error("Matrix is not invertible");
+        }
+
+        Matrix3 cofactorMatrix = allCofactors();
+        return Matrix3{
+            cofactorMatrix(0, 0) / det, cofactorMatrix(1, 0) / det, cofactorMatrix(2, 0) / det,
+            cofactorMatrix(0, 1) / det, cofactorMatrix(1, 1) / det, cofactorMatrix(2, 1) / det,
+            cofactorMatrix(0, 2) / det, cofactorMatrix(1, 2) / det, cofactorMatrix(2, 2) / det
+        };
+    }
+
+private:
+
+    constexpr inline Matrix3 allCofactors() const requires std::is_signed_v<T> {
+        return Matrix3{
+             (data[index(1, 1)] * data[index(2, 2)] - data[index(2, 1)] * data[index(1, 2)]),
+            -(data[index(0, 1)] * data[index(2, 2)] - data[index(2, 1)] * data[index(0, 2)]),
+             (data[index(0, 1)] * data[index(1, 2)] - data[index(1, 1)] * data[index(0, 2)]),
+
+            -(data[index(1, 0)] * data[index(2, 2)] - data[index(2, 0)] * data[index(1, 2)]),
+             (data[index(0, 0)] * data[index(2, 2)] - data[index(2, 0)] * data[index(0, 2)]),
+            -(data[index(0, 0)] * data[index(1, 2)] - data[index(1, 0)] * data[index(0, 2)]),
+
+             (data[index(1, 0)] * data[index(2, 1)] - data[index(2, 0)] * data[index(1, 1)]),
+            -(data[index(0, 0)] * data[index(2, 1)] - data[index(2, 0)] * data[index(0, 1)]),
+             (data[index(0, 0)] * data[index(1, 1)] - data[index(1, 0)] * data[index(0, 1)])
+        };
+    }
+
+    static consteval inline std::size_t index(std::size_t row, std::size_t column) {
+        return column * 3 + row;
     }
 };
 

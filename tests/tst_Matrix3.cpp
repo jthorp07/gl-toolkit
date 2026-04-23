@@ -382,10 +382,33 @@ TEST(Matrix3, cofactor) {
         -1, 4, -5
     };
     EXPECT_EQ(matrix.cofactor(0, 0), -55);
-    EXPECT_EQ(matrix.cofactor(0, 1), 5);
-    EXPECT_EQ(matrix.cofactor(0, 2), 15);
+    EXPECT_EQ(matrix.cofactor(0, 1),   5);
+    EXPECT_EQ(matrix.cofactor(0, 2),  15);
     EXPECT_EQ(matrix.cofactor(1, 1), -22);
-    EXPECT_EQ(matrix.cofactor(1, 0), -8);
+    EXPECT_EQ(matrix.cofactor(1, 0),  -8);
     EXPECT_EQ(matrix.cofactor(1, 2), -16);
-    EXPECT_EQ(matrix.cofactor(2, 2), -3);
+    EXPECT_EQ(matrix.cofactor(2, 2),  -3);
+}
+
+TEST(Matrix3, inverse) {
+    gltkmath::Matrix3 matrix{
+        1, 2, 2,
+        2, 3, 2,
+        1, 2, 1
+    };
+    gltkmath::Matrix3 inverse = matrix.inverse();
+    gltkmath::Matrix3 expected{
+        -1,  2, -2,
+         0, -1,  2,
+         1,  0, -1
+    };
+    EXPECT_EQ(inverse(0, 0), expected(0, 0));
+    EXPECT_EQ(inverse(0, 1), expected(0, 1));
+    EXPECT_EQ(inverse(0, 2), expected(0, 2));
+    EXPECT_EQ(inverse(1, 0), expected(1, 0));
+    EXPECT_EQ(inverse(1, 1), expected(1, 1));
+    EXPECT_EQ(inverse(1, 2), expected(1, 2));
+    EXPECT_EQ(inverse(2, 0), expected(2, 0));
+    EXPECT_EQ(inverse(2, 1), expected(2, 1));
+    EXPECT_EQ(inverse(2, 2), expected(2, 2));
 }
