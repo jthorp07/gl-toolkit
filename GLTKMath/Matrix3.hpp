@@ -15,6 +15,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <type_traits>
+#include <utility>
 
 namespace gltkmath {
 
@@ -425,38 +426,29 @@ public:
             sign = static_cast<T>(-1);
         }
 
-        std::pair<T, T> rowMinors;
-        switch (row) {
-            case 0:
-                rowMinors = { static_cast<T>(1), static_cast<T>(2) };
-                break;
-            case 1:
-                rowMinors = { static_cast<T>(0), static_cast<T>(2) };
-                break;
-            case 2:
-                rowMinors = { static_cast<T>(0), static_cast<T>(1) };
-                break;
-            default:
-                throw std::out_of_range("Row and column must be 0, 1, or 2");
-        }
+        using MinorIndices = std::array<std::size_t, 4>;
+        using MinorLookup = std::array<std::array<MinorIndices, 3>, 3>;
+        constexpr MinorLookup minorLookup{{
+            {{
+                {{ index(1, 1), index(2, 2), index(1, 2), index(2, 1) }},
+                {{ index(1, 0), index(2, 2), index(1, 2), index(2, 0) }},
+                {{ index(1, 0), index(2, 1), index(1, 1), index(2, 0) }}
+            }},
+            {{
+                {{ index(0, 1), index(2, 2), index(0, 2), index(2, 1) }},
+                {{ index(0, 0), index(2, 2), index(0, 2), index(2, 0) }},
+                {{ index(0, 0), index(2, 1), index(0, 1), index(2, 0) }}
+            }},
+            {{
+                {{ index(0, 1), index(1, 2), index(0, 2), index(1, 1) }},
+                {{ index(0, 0), index(1, 2), index(0, 2), index(1, 0) }},
+                {{ index(0, 0), index(1, 1), index(0, 1), index(1, 0) }}
+            }}
+        }};
+        const auto& minorIndices = minorLookup[row][column];
 
-        std::pair<T, T> columnMinors;
-        switch (column) {
-            case 0:
-                columnMinors = { static_cast<T>(1), static_cast<T>(2) };
-                break;
-            case 1:
-                columnMinors = { static_cast<T>(0), static_cast<T>(2) };
-                break;
-            case 2:
-                columnMinors = { static_cast<T>(0), static_cast<T>(1) };
-                break;
-            default:
-                throw std::out_of_range("Row and column must be 0, 1, or 2");
-        }
-
-        return sign * (data[columnMinors.first * 3 + rowMinors.first] * data[columnMinors.second * 3 + rowMinors.second] -
-                       data[columnMinors.first * 3 + rowMinors.second] * data[columnMinors.second * 3 + rowMinors.first]);
+        return sign * (data[minorIndices[0]] * data[minorIndices[1]] -
+                       data[minorIndices[2]] * data[minorIndices[3]]);
     }
 
     [[nodiscard]] constexpr inline Matrix3 inverse() const requires std::is_signed_v<T> {
