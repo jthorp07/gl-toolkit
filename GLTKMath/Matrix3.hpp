@@ -74,7 +74,7 @@ public:
      * 
      * @return Reference to the component at the specified location
      */
-    constexpr inline T& operator()(std::size_t column, std::size_t row) noexcept {
+    [[nodiscard]] constexpr inline T& operator()(std::size_t column, std::size_t row) noexcept {
         if (column >= 3 || row >= 3) [[unlikely]] {
             gltkmath::Error::Fatal("Matrix3 indices out of bounds");
         }
@@ -89,7 +89,7 @@ public:
      * 
      * @return Reference to the component at the specified location
      */
-    constexpr inline const T& operator()(std::size_t column, std::size_t row) const noexcept {
+    [[nodiscard]] constexpr inline const T& operator()(std::size_t column, std::size_t row) const noexcept {
         if (column >= 3 || row >= 3) [[unlikely]] {
             gltkmath::Error::Fatal("Matrix3 indices out of bounds");
         }
@@ -105,7 +105,7 @@ public:
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
-    constexpr inline Matrix3<std::common_type_t<T, U>> operator+(const Matrix3<U>& other) const {
+    [[nodiscard]] constexpr inline Matrix3<std::common_type_t<T, U>> operator+(const Matrix3<U>& other) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
             static_cast<ResultType>(data[0]) + static_cast<ResultType>(other.data[0]),
@@ -129,7 +129,7 @@ public:
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
-    constexpr inline Matrix3<std::common_type_t<T, U>> operator-(const Matrix3<U>& other) const {
+    [[nodiscard]] constexpr inline Matrix3<std::common_type_t<T, U>> operator-(const Matrix3<U>& other) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
             static_cast<ResultType>(data[0]) - static_cast<ResultType>(other.data[0]),
@@ -149,7 +149,7 @@ public:
      * 
      * @return Matrix whose components are the negation of this
      */
-    constexpr inline Matrix3 operator-() const requires std::is_signed_v<T> {
+    [[nodiscard]] constexpr inline Matrix3 operator-() const requires std::is_signed_v<T> {
         return Matrix3{
             -data[0], -data[1], -data[2],
             -data[3], -data[4], -data[5],
@@ -166,7 +166,7 @@ public:
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
-    constexpr inline Matrix3<std::common_type_t<T, U>> operator*(U scalar) const {
+    [[nodiscard]] constexpr inline Matrix3<std::common_type_t<T, U>> operator*(U scalar) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
             static_cast<ResultType>(data[0]) * static_cast<ResultType>(scalar),
@@ -191,7 +191,7 @@ public:
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
-    friend constexpr inline Matrix3<std::common_type_t<T, U>> operator*(U scalar, const Matrix3<T>& matrix) {
+    [[nodiscard]] friend constexpr inline Matrix3<std::common_type_t<T, U>> operator*(U scalar, const Matrix3<T>& matrix) {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
             static_cast<ResultType>(matrix.data[0]) * static_cast<ResultType>(scalar),
@@ -215,7 +215,7 @@ public:
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
-    constexpr inline Vector3<std::common_type_t<T, U>> operator*(Vector3<U> vector) const {
+    [[nodiscard]] constexpr inline Vector3<std::common_type_t<T, U>> operator*(Vector3<U> vector) const {
         using ResultType = std::common_type_t<T, U>;
         return Vector3<ResultType>(
             (static_cast<ResultType>(data[0]) * static_cast<ResultType>(vector.x)) +
@@ -241,7 +241,7 @@ public:
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
-    constexpr inline Matrix3<std::common_type_t<T, U>> operator*(const Matrix3<U>& other) const {
+    [[nodiscard]] constexpr inline Matrix3<std::common_type_t<T, U>> operator*(const Matrix3<U>& other) const {
         using ResultType = std::common_type_t<T, U>;
         return Matrix3{
             static_cast<ResultType>(data[0]) * static_cast<ResultType>(other.data[0]) +
