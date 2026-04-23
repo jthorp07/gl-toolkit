@@ -49,6 +49,40 @@ TEST(Matrix3_Constructors, ComponentWise) {
     EXPECT_FLOAT_EQ(matrix(2, 2), 9.0f);
 }
 
+TEST(Matrix3_Constructors, Array) {
+    std::array<float, 9> components = {
+        1.0f, 4.0f, 7.0f,
+        2.0f, 5.0f, 8.0f,
+        3.0f, 6.0f, 9.0f
+    };
+    gltkmath::Matrix3 matrix(components);
+    EXPECT_FLOAT_EQ(matrix(0, 0), 1.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), 4.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), 7.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 2.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 5.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 8.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), 3.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), 6.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), 9.0f);
+
+    std::array<std::size_t, 9> sizeComponents = {
+        1, 4, 7,
+        2, 5, 8,
+        3, 6, 9
+    };
+    gltkmath::Matrix3<std::size_t> movedMatrix(std::move(sizeComponents));
+    EXPECT_EQ(movedMatrix(0, 0), 1);
+    EXPECT_EQ(movedMatrix(0, 1), 4);
+    EXPECT_EQ(movedMatrix(0, 2), 7);
+    EXPECT_EQ(movedMatrix(1, 0), 2);
+    EXPECT_EQ(movedMatrix(1, 1), 5);
+    EXPECT_EQ(movedMatrix(1, 2), 8);
+    EXPECT_EQ(movedMatrix(2, 0), 3);
+    EXPECT_EQ(movedMatrix(2, 1), 6);
+    EXPECT_EQ(movedMatrix(2, 2), 9);
+}
+
 TEST(Matrix3_Operators, Addition) {
     gltkmath::Matrix3 matrix{
         1.0f, 2.0f, 3.0f,
