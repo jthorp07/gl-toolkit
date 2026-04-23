@@ -13,7 +13,8 @@ enable_testing()
 
 add_executable(GLTKTests main.cpp
     tst_Vector3.cpp
-    tst_Vector4.cpp)
+    tst_Vector4.cpp
+    tst_Matrix3.cpp)
 
 target_link_libraries(GLTKTests
     PRIVATE
@@ -24,3 +25,8 @@ target_link_libraries(GLTKTests
 
 include(GoogleTest)
 gtest_discover_tests(GLTKTests)
+
+add_custom_target(run_tests
+    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+    DEPENDS GLTKTests
+)

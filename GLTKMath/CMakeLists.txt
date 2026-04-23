@@ -7,6 +7,7 @@ add_library(GLTKMath STATIC
   gltkmath.hpp
   Vector3.hpp
   Vector4.hpp
+  Matrix3.hpp
 )
 
 target_include_directories(GLTKMath PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
