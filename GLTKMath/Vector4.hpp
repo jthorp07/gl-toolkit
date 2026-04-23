@@ -52,9 +52,9 @@ public:
     /**
      * @brief Component-wise subtraction
      *
-     * @param other Vector to add
+     * @param other Vector to subtract
      *
-     * @return Vector whose components are the sum of this and other
+     * @return Vector whose components are the difference of this and other
      */
     template<typename U>
         requires std::is_arithmetic_v<U>
@@ -184,7 +184,7 @@ public:
     }
 
     /**
-     * @brief The scalar magnitude of the vector using 3D Euclidean distance.
+     * @brief The scalar magnitude of the vector using 4D Euclidean distance.
      *
      * @warning Only usable with floating point vectors
      *
@@ -200,7 +200,8 @@ public:
     }
 
     /**
-     * @brief The scalar magnitude of the vector squared using 3D Euclidean distance.
+     * @brief The scalar magnitude of the vector squared using 4D Euclidean distance.
+     * 
      * @return Magnitude of the vector squared
      */
     [[nodiscard]] constexpr inline T magnitudeSquared() const {
@@ -210,6 +211,7 @@ public:
     /**
      * @brief Copies this vector's components to a new vector casted to
      *        NewType
+     * 
      * @return Copied casted vector
      */
     template<typename NewType>
