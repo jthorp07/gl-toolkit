@@ -451,7 +451,7 @@ public:
                        data[minorIndices[2]] * data[minorIndices[3]]);
     }
 
-    [[nodiscard]] constexpr inline Matrix3 inverse() const requires std::is_signed_v<T> {
+    [[nodiscard]] constexpr inline Matrix3 inverse() const requires (std::is_signed_v<T> && std::is_floating_point_v<T>) {
 
         const T det = determinant();
         if (det == static_cast<T>(0)) [[unlikely]] {
