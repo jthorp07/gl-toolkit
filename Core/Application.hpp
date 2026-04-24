@@ -61,9 +61,11 @@ public:
     virtual void postInitialize();
 
     /**
-     * @brief Runs the core application loop
+     * @brief Runs a single tick of the application
+     * 
+     * @param deltaSeconds The time in seconds since the last tick
      */
-    virtual void run() = 0;
+    virtual void tick(float deltaSeconds) = 0;
 
     /**
      * @brief Runs after the main loop ends, but before engine systems are shut

@@ -24,7 +24,7 @@ TEST(Application, Constructor) {
     class Foo : public gltk::Application {
     public:
         explicit Foo(gltk::ApplicationArguments args) : gltk::Application(std::move(args)) {}
-        void run() override {}
+        void tick(float deltaSeconds) override {}
     };
 
     gltk::ApplicationArguments args;
