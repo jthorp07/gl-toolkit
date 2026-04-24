@@ -2,9 +2,15 @@ cmake_minimum_required(VERSION 4.0)
 
 project(Core LANGUAGES CXX)
 
+file(GLOB_RECURSE CORE_SRC
+  "*.cpp")
+
+file(GLOB_RECURSE CORE_INCLUDE
+  "*.hpp")
+
 add_library(Core STATIC
-  core.cpp
-  core.hpp
+  ${CORE_SRC}
+  ${CORE_INCLUDE}
 )
 
 target_include_directories(Core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
