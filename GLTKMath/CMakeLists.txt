@@ -3,9 +3,11 @@ cmake_minimum_required(VERSION 4.0)
 project(GLTKMath LANGUAGES CXX)
 
 file(GLOB_RECURSE MATH_SRC
+  CONFIGURE_DEPENDS
   "*.cpp")
 
 file(GLOB_RECURSE MATH_INCLUDE
+  CONFIGURE_DEPENDS
   "*.hpp")
 
 add_library(GLTKMath STATIC

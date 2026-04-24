@@ -1,7 +1,7 @@
 /**
- * @file tests/main.cpp
+ * @file tests/GLTKMath/main.cpp
  *
- * @brief Driver for the GLToolkit test suite
+ * @brief Driver for the GLTKMath test suite
  */
 
 #include <gtest/gtest.h>
