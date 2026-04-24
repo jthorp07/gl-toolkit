@@ -11,10 +11,11 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(GLTKTests main.cpp
-    tst_Vector3.cpp
-    tst_Vector4.cpp
-    tst_Matrix3.cpp)
+file(GLOB_RECURSE TEST_SOURCES
+    "*.cpp"
+)
+
+add_executable(GLTKTests ${TEST_SOURCES})
 
 target_link_libraries(GLTKTests
     PRIVATE

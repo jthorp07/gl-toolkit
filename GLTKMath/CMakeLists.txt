@@ -2,12 +2,15 @@ cmake_minimum_required(VERSION 4.0)
 
 project(GLTKMath LANGUAGES CXX)
 
+file(GLOB_RECURSE MATH_SRC
+  "*.cpp")
+
+file(GLOB_RECURSE MATH_INCLUDE
+  "*.hpp")
+
 add_library(GLTKMath STATIC
-  gltkmath.cpp
-  gltkmath.hpp
-  Vector3.hpp
-  Vector4.hpp
-  Matrix3.hpp
+  ${MATH_SRC}
+  ${MATH_INCLUDE}
 )
 
 target_include_directories(GLTKMath PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
