@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 #include "Application.hpp"
 
-TEST(Application, ParseArguments) {
+TEST(Application, parseArguments) {
     const char* argv[] = {"app", "arg1", "arg2"};
     int argc = sizeof(argv) / sizeof(argv[0]);
 
