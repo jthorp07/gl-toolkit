@@ -32,3 +32,37 @@ TEST(Application, Constructor) {
 
     Foo app(args);
 }
+
+TEST(Application, ExternalImplementationLoop) {
+
+    class Foo : public gltk::Application {
+        std::size_t tickCount = 0;
+        float secondsElapsed = 0.0f;
+    public:
+        explicit Foo(gltk::ApplicationArguments args) : gltk::Application(std::move(args)) {}
+        void tick(float deltaSeconds) override {
+            ++tickCount;
+            secondsElapsed += deltaSeconds;
+        }
+        std::size_t getTickCount() const { return tickCount; }
+        float getSecondsElapsed() const { return secondsElapsed; }
+    };
+
+    gltk::ApplicationArguments args;
+    Foo app(args);
+
+    app.preInitialize();
+    app.postInitialize();
+    float expectedSecondsElapsed = 0.0f;
+    for (std::size_t tick = 0; tick < 10; ++tick) {
+
+        const float deltaSeconds = 0.01f * static_cast<float>(tick);
+        app.tick(deltaSeconds);
+        expectedSecondsElapsed += deltaSeconds;
+    }
+    app.preShutdown();
+    app.postShutdown();
+
+    EXPECT_FLOAT_EQ(app.getSecondsElapsed(), expectedSecondsElapsed);
+    EXPECT_EQ(app.getTickCount(), 10);
+}
