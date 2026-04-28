@@ -65,6 +65,22 @@ public:
     }) {}
 
     /**
+     * @brief Explicit array constructor - Initializes with an array of
+     *        16 components in column-major order
+     *
+     * @param components Array of 16 components in column-major order
+     */
+    constexpr explicit Matrix4(const std::array<T, 16>& components)
+        : data(components) {}
+
+    /**
+     * @brief Explicit array constructor - Initializes with an array of
+     *        16 components in column-major order by move
+     */
+    constexpr explicit Matrix4(std::array<T, 16>&& components)
+        : data(std::move(components)) {}
+
+    /**
      * @brief Accessor for the component at the specified column and row
      * 
      * @param column Column index

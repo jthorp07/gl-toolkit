@@ -52,3 +52,47 @@ TEST(Matrix4_Constructors, ComponentWise) {
     EXPECT_FLOAT_EQ(matrix(3, 2), 12.0f);
     EXPECT_FLOAT_EQ(matrix(3, 3), 16.0f);
 }
+
+TEST(Matrix4_Constructors, Array) {
+    std::array<float, 16> components = {
+         1.0f,  5.0f,  9.0f, 13.0f,
+         2.0f,  6.0f, 10.0f, 14.0f,
+         3.0f,  7.0f, 11.0f, 15.0f,
+         4.0f,  8.0f, 12.0f, 16.0f
+    };
+    gltkmath::Matrix4 matrix(components);
+    EXPECT_FLOAT_EQ(matrix(0, 0), 1.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 1), 5.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 2), 9.0f);
+    EXPECT_FLOAT_EQ(matrix(0, 3), 13.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 0), 2.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 1), 6.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 2), 10.0f);
+    EXPECT_FLOAT_EQ(matrix(1, 3), 14.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 0), 3.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 1), 7.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 2), 11.0f);
+    EXPECT_FLOAT_EQ(matrix(2, 3), 15.0f);
+    EXPECT_FLOAT_EQ(matrix(3, 0), 4.0f);
+    EXPECT_FLOAT_EQ(matrix(3, 1), 8.0f);
+    EXPECT_FLOAT_EQ(matrix(3, 2), 12.0f);
+    EXPECT_FLOAT_EQ(matrix(3, 3), 16.0f);
+
+    gltkmath::Matrix4 movedMatrix(std::move(components));
+    EXPECT_FLOAT_EQ(movedMatrix(0, 0), 1.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(0, 1), 5.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(0, 2), 9.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(0, 3), 13.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(1, 0), 2.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(1, 1), 6.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(1, 2), 10.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(1, 3), 14.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(2, 0), 3.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(2, 1), 7.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(2, 2), 11.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(2, 3), 15.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(3, 0), 4.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(3, 1), 8.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(3, 2), 12.0f);
+    EXPECT_FLOAT_EQ(movedMatrix(3, 3), 16.0f);
+}
