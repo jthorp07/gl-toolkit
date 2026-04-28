@@ -1,10 +1,6 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
-class Core
-{
-public:
-    Core();
-};
+#include "Application.hpp"
 
 #endif // CORE_HPP
