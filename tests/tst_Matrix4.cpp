@@ -96,3 +96,29 @@ TEST(Matrix4_Constructors, Array) {
     EXPECT_FLOAT_EQ(movedMatrix(3, 2), 12.0f);
     EXPECT_FLOAT_EQ(movedMatrix(3, 3), 16.0f);
 }
+
+TEST(Matrix4_Operators, Addition) {
+    gltkmath::Matrix4 matrix{
+         1.0f,  2.0f,  3.0f,  4.0f,
+         5.0f,  6.0f,  7.0f,  8.0f,
+         9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
+    };
+    gltkmath::Matrix4 result = matrix + matrix;
+    EXPECT_FLOAT_EQ(result(0, 0),  2.0f);
+    EXPECT_FLOAT_EQ(result(0, 1),  4.0f);
+    EXPECT_FLOAT_EQ(result(0, 2),  6.0f);
+    EXPECT_FLOAT_EQ(result(0, 3),  8.0f);
+    EXPECT_FLOAT_EQ(result(1, 0), 10.0f);
+    EXPECT_FLOAT_EQ(result(1, 1), 12.0f);
+    EXPECT_FLOAT_EQ(result(1, 2), 14.0f);
+    EXPECT_FLOAT_EQ(result(1, 3), 16.0f);
+    EXPECT_FLOAT_EQ(result(2, 0), 18.0f);
+    EXPECT_FLOAT_EQ(result(2, 1), 20.0f);
+    EXPECT_FLOAT_EQ(result(2, 2), 22.0f);
+    EXPECT_FLOAT_EQ(result(2, 3), 24.0f);
+    EXPECT_FLOAT_EQ(result(3, 0), 26.0f);
+    EXPECT_FLOAT_EQ(result(3, 1), 28.0f);
+    EXPECT_FLOAT_EQ(result(3, 2), 30.0f);
+    EXPECT_FLOAT_EQ(result(3, 3), 32.0f);
+}
