@@ -140,6 +140,37 @@ public:
             static_cast<ResultType>(data[15]) + static_cast<ResultType>(other.data[15])
         };
     }
+
+    /**
+     * @brief Component-wise subtraction
+     * 
+     * @param other Matrix to subtract
+     * 
+     * @return Matrix whose components are the difference of this and other
+     */
+    template<typename U>
+        requires std::is_arithmetic_v<U>
+    [[nodiscard]] constexpr inline Matrix4<std::common_type_t<T, U>> operator-(const Matrix4<U>& other) const {
+        using ResultType = std::common_type_t<T, U>;
+        return Matrix4{
+            static_cast<ResultType>(data[ 0]) - static_cast<ResultType>(other.data[ 0]),
+            static_cast<ResultType>(data[ 1]) - static_cast<ResultType>(other.data[ 1]),
+            static_cast<ResultType>(data[ 2]) - static_cast<ResultType>(other.data[ 2]),
+            static_cast<ResultType>(data[ 3]) - static_cast<ResultType>(other.data[ 3]),
+            static_cast<ResultType>(data[ 4]) - static_cast<ResultType>(other.data[ 4]),
+            static_cast<ResultType>(data[ 5]) - static_cast<ResultType>(other.data[ 5]),
+            static_cast<ResultType>(data[ 6]) - static_cast<ResultType>(other.data[ 6]),
+            static_cast<ResultType>(data[ 7]) - static_cast<ResultType>(other.data[ 7]),
+            static_cast<ResultType>(data[ 8]) - static_cast<ResultType>(other.data[ 8]),
+            static_cast<ResultType>(data[ 9]) - static_cast<ResultType>(other.data[ 9]),
+            static_cast<ResultType>(data[10]) - static_cast<ResultType>(other.data[10]),
+            static_cast<ResultType>(data[11]) - static_cast<ResultType>(other.data[11]),
+            static_cast<ResultType>(data[12]) - static_cast<ResultType>(other.data[12]),
+            static_cast<ResultType>(data[13]) - static_cast<ResultType>(other.data[13]),
+            static_cast<ResultType>(data[14]) - static_cast<ResultType>(other.data[14]),
+            static_cast<ResultType>(data[15]) - static_cast<ResultType>(other.data[15])
+        };
+    }
 };
 
 // Type deduction

@@ -122,3 +122,18 @@ TEST(Matrix4_Operators, Addition) {
     EXPECT_FLOAT_EQ(result(3, 2), 30.0f);
     EXPECT_FLOAT_EQ(result(3, 3), 32.0f);
 }
+
+TEST(Matrix4_Operators, Subtraction) {
+    gltkmath::Matrix4 matrix{
+         1.0f,  2.0f,  3.0f,  4.0f,
+         5.0f,  6.0f,  7.0f,  8.0f,
+         9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
+    };
+    gltkmath::Matrix4 result = matrix - matrix;
+    for (std::size_t column = 0; column < 4; ++column) {
+        for (std::size_t row = 0; row < 4; ++row) {
+            EXPECT_FLOAT_EQ(result(column, row), 0.0f);
+        }
+    }
+}
