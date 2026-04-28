@@ -171,6 +171,20 @@ public:
             static_cast<ResultType>(data[15]) - static_cast<ResultType>(other.data[15])
         };
     }
+
+    /**
+     * @brief Unary subtraction (negation)
+     * 
+     * @return Matrix whose components are the negation of this
+     */
+    [[nodiscard]] constexpr inline Matrix4 operator-() const requires std::is_signed_v<T> {
+        return Matrix4{
+            -data[0], -data[4], -data[ 8], -data[12],
+            -data[1], -data[5], -data[ 9], -data[13],
+            -data[2], -data[6], -data[10], -data[14],
+            -data[3], -data[7], -data[11], -data[15]
+        };
+    }
 };
 
 // Type deduction
